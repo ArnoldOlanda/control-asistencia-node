@@ -1,0 +1,21 @@
+<%- include("template/cabecera",{titulo:"Dashboard|Admin"}) %>
+<%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %> 
+
+<div class="dashboard-container">
+    <div class="side-bar-container">
+        <ul>
+            <li><a href="/dashboard/mantenimientoEmpleado" target="frame"> Empleados</a></li>
+            <li><a href="/dashboard/mantenimientoUsuario" target="frame"> Usuarios</a></li>
+            <li><a href="/dashboard/mantenimientoHorario" target="frame"> Horarios</a></li>
+            <li><a href="/dashboard/calendario" target="frame"> Calendario</a></li>
+            <li><a href="/dashboard/feriados" target="frame"> Feriados</a></li>
+            <li><a href="/dashboard/reportes" target="frame"> Reportes</a></li>
+            <li><a href="/dashboard/estadisticas" target="frame"> Estadisticas</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <iframe name="frame"></iframe>
+    </div>
+</div>
+
+<%- include("template/footer") %> 
