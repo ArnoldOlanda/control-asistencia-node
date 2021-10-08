@@ -4,10 +4,11 @@ const dashboardRouter = Router();
 dashboardRouter.get("/", (req, res) => {
   if (req.session.username) {
     const { username } = req.session;
-    console.log(req.session.id);
-    res.render("dashboard", { nombreUsuario: username });
+    //console.log(req.session.id);
+    res.render("dashboard", { nombreUsuario: username, page: "" });
+  } else {
+    res.redirect("/login");
   }
-  res.redirect("/login");
 });
 
 dashboardRouter.get("/mantenimientoEmpleado", (req, res) => {
@@ -38,8 +39,6 @@ dashboardRouter.get("/estadisticas", (req, res) => {
   res.send("estadisticas");
 });
 
-dashboardRouter.get("/logout",(req, res)=>{
-    
-})
+dashboardRouter.get("/logout", (req, res) => {});
 
 module.exports = dashboardRouter;
