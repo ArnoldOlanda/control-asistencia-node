@@ -5,3 +5,4 @@ router.post('/marcar',(req,res)=>{
     res.send("Asistencia registrada")
 })
 
+module.exports=router;
