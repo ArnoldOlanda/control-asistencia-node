@@ -34,7 +34,6 @@ setInterval(() => {
     : (dia = fechaActual.getDate());
 
   mes = meses[fechaActual.getMonth()];
-
   anio = fechaActual.getFullYear();
 
   if (fechaActual.getHours() > 12) {
@@ -57,3 +56,4 @@ setInterval(() => {
   reloj.innerText = `${hora}:${minuto}:${segundo}`;
   ampm.innerText = txtampm;
 }, 500);
+

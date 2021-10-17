@@ -1,9 +1,20 @@
 <%- include("template/cabecera",{titulo:"Acceder"}) %> <%-
 include("template/navbar") %>
 <div class="login-container">
-  <form action="/login/verifyLogin" method="post" class="form-container">
+  <form action="/login/verifyLogin" method="post" id="formSubmit" class="form-container">
     <div class="input-container">
-      <input
+      <% if(messageError.userBadPassword) {%>
+        <input
+        type="text"
+        class="input"
+        name="user"
+        id="user"
+        placeholder="Usuario"
+        autocomplete="off"
+        value="<%= messageError.userBadPassword %>"
+        />
+      <% } else {%>
+        <input
         type="text"
         class="input"
         name="user"
@@ -11,9 +22,12 @@ include("template/navbar") %>
         placeholder="Usuario"
         autocomplete="off"
       />
-      <% if (messageError.messageUserError) { %>
-      <p class="message-error"><%= messageError.messageUserError %></p>
       <% } %>
+      <p class="message-error" id="userMessageError">
+        <% if (messageError.messageUserNotFound) { %>
+          <%= messageError.messageUserNotFound %>
+        <% } %>
+      </p>
     </div>
     <div class="input-container">
       <input
@@ -22,9 +36,11 @@ include("template/navbar") %>
         id="password"
         placeholder="Password"
       />
-      <% if (messageError.messagePasswordError) { %>
-      <p class="message-error"><%= messageError.messagePasswordError %></p>
-      <% } %>
+      <p class="message-error" id="passwordMessageError">
+        <% if (messageError.messageBadPassword) { %>
+          <%= messageError.messageBadPassword %></p>
+        <% } %>
+      </p>
     </div>
     <input type="submit" value="Ingresar" />
   </form>

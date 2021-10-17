@@ -4,7 +4,6 @@ const dashboardRouter = Router();
 dashboardRouter.get("/", (req, res) => {
   if (req.session.username) {
     const { username } = req.session;
-    //console.log(req.session.id);
     res.render("dashboard", { nombreUsuario: username, page: "" });
   } else {
     res.redirect("/login");
@@ -12,33 +11,45 @@ dashboardRouter.get("/", (req, res) => {
 });
 
 dashboardRouter.get("/mantenimientoEmpleado", (req, res) => {
-  res.render("empleado");
+  if(req.session.username){
+    res.render("empleado");
+  }else res.redirect("/login")
 });
 
 dashboardRouter.get("/mantenimientoUsuario", (req, res) => {
-  res.send("mantenimiento usuario");
+  if(req.session.username) res.send("mantenimiento usuario");
+  else res.redirect('/login')
 });
 
 dashboardRouter.get("/mantenimientoHorario", (req, res) => {
-  res.send("mantenimiento horario");
+  if(req.session.username) res.send("mantenimiento horario");
+  else res.redirect('/login')
 });
 
 dashboardRouter.get("/calendario", (req, res) => {
-  res.send("calendario");
+  if(req.session.username) res.send("calendario");
+  else res.redirect('/login')
 });
 
 dashboardRouter.get("/feriados", (req, res) => {
-  res.send("feriados");
+  if(req.session.username) res.send("feriados");
+  else res.redirect('/login')
 });
 
 dashboardRouter.get("/reportes", (req, res) => {
-  res.send("reportes");
+  if(req.session.username) res.send("reportes");
+  else res.redirect('/login')
 });
 
 dashboardRouter.get("/estadisticas", (req, res) => {
-  res.send("estadisticas");
+  if(req.session.username) res.send("estadisticas");
+  else res.redirect('/login')
 });
 
-dashboardRouter.get("/logout", (req, res) => {});
+dashboardRouter.get("/logout", (req, res) => {
+  if(req.session.username) req.session.destroy(()=>{
+    res.redirect('/login')
+  })
+});
 
 module.exports = dashboardRouter;
