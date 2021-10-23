@@ -2,6 +2,10 @@ const fecha = document.getElementById("fecha");
 const reloj = document.getElementById("reloj");
 const ampm = document.getElementById("ampm");
 
+const openModalBtn =  document.getElementById("btn-open-modal");
+const modalBackground = document.querySelector(".modal-background");
+const modalContainer = document.querySelector(".modal-container")
+
 let dia,
   mes,
   anio,
@@ -57,3 +61,22 @@ setInterval(() => {
   ampm.innerText = txtampm;
 }, 500);
 
+openModalBtn.addEventListener("click",()=>{
+  modalBackground.classList.add("show-background")
+  modalContainer.classList.add("show-modal")
+})
+
+// modalBackground.addEventListener("click",()=>{
+//   modalBackground.classList.remove("show-background")
+//   modalContainer.classList.remove("show-modal")
+// })
+
+document.getElementById("btnCancel").addEventListener("click",()=>{
+  modalBackground.classList.remove("show-background")
+  modalContainer.classList.remove("show-modal")
+})
+
+document.getElementById("closeModal").addEventListener("click",()=>{
+  modalBackground.classList.remove("show-background")
+  modalContainer.classList.remove("show-modal")
+})

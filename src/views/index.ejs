@@ -1,39 +1,49 @@
 <%- include("template/cabecera",{titulo:"Sistema de asistencia"}) %> <%-
 include("template/navbar") %>
 <div class="main-container">
-    <div class="fecha-container">
-        <h3 id="fecha">-</h3>
-    </div>
+  <div class="fecha-container">
+    <h3 id="fecha">-</h3>
+  </div>
   <div class="reloj-container">
-    <h1>Hora actual</h1>
+    <h1>Hora del sistema</h1>
     <h1 id="reloj">-</h1>
     <span id="ampm">-</span>
   </div>
-  <button>Marcar asistencia</button>
+  <button id="btn-open-modal">Marcar asistencia</button>
   <div class="registros-entrada-container">
-      <table class="registros-entrada" border="1">
-          <tr>
-              <td>Nro</td>
-              <td>Codigo</td>
-              <td>Nombre</td>
-              <td>Hora</td>
-              <td>Retraso</td>
-          </tr>
-          <tr>
-              <td>1</td>
-              <td>70606804</td>
-              <td>Arnold</td>
-              <td>11:33 am</td>
-              <td>Si</td>
-          </tr>
-      </table>
+    <table class="registros-entrada" border="1">
+      <tr>
+        <td>Nro</td>
+        <td>Codigo</td>
+        <td>Nombre</td>
+        <td>Hora</td>
+        <td>Retraso</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>70606804</td>
+        <td>Arnold</td>
+        <td>11:33 am</td>
+        <td>Si</td>
+      </tr>
+    </table>
   </div>
   <div class="modal-background">
-      <div class="modal-container">
-          <span>Marcar asistencia</span>
-          <input type="text" name="dni" placeholder="Ingrese DNI">
-          <button>Marcar</button>
+    <form class="modal-container" method="post" action="/marcar">
+      <div class="modal-title">
+        <span>Marcar asistencia</span>
+        <button type="button" class="close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
       </div>
+      <div class="modal-body">
+        <input type="text" name="dni" placeholder="Ingrese DNI" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancel"><i class="fas fa-ban"></i>Cancelar</button>
+        <button type="submit"><i class="fas fa-check"></i>Marcar</button>
+      </div>
+    </form>
   </div>
 </div>
 

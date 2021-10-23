@@ -1,1 +1,53 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
 <h1>Mantenimiento de empleados</h1>
+<button>Add</button>
+<table border="1">
+  <tr>
+    <td>Dni</td>
+    <td>Nombre</td>
+    <td>Celular</td>
+    <td>Correo</td>
+    <td>Direccion</td>
+    <td>Genero</td>
+    <td>Cargo</td>
+    <td>Horario</td>
+    <td>Usuario</td>
+    <td>Password</td>
+    <td>Rol</td>
+    <td>Estado</td>
+    <td colspan="2">Operaciones</td>
+  </tr>
+  <% for( row of data ) { %>
+  <tr>
+    <td><%= row.dni %></td>
+    <td><%= row.nombre + " " + row.apellidos %></td>
+    <td><%= row.celular %></td>
+    <td><%= row.correo %></td>
+    <td><%= row.direccion %></td>
+    <td><%= row.genero %></td>
+    <td><%= row.cargo %></td>
+    <td><%= row.horario %></td>
+    <td><%= row.usuario %></td>
+    <td><%= row.contrasena %></td>
+    <td><%= row.rol %></td>
+    <% if (row.estado==1) { %>
+        <td>Activo</td>
+        <td>
+            <form action="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>" method="get">
+              <button type="submit"><i class="fas fa-ban"></i></button>
+            </form>
+          </td>
+    <% } else { %>
+        <td>Inactivo</td>
+        <td>
+          <form action="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>" method="get">
+            <button type="submit"><i class="fas fa-check"></i></button>
+          </form>
+        </td>
+    <% } %>
+    <td><button type="button"><i class="fas fa-pen"></i></button></td>
+  </tr>
+  <% } %>
+</table>
