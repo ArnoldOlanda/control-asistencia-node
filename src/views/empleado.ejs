@@ -1,53 +1,163 @@
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/empleado.css" />
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous"
+  />
 </head>
-<h1>Mantenimiento de empleados</h1>
-<button>Add</button>
-<table border="1">
-  <tr>
-    <td>Dni</td>
-    <td>Nombre</td>
-    <td>Celular</td>
-    <td>Correo</td>
-    <td>Direccion</td>
-    <td>Genero</td>
-    <td>Cargo</td>
-    <td>Horario</td>
-    <td>Usuario</td>
-    <td>Password</td>
-    <td>Rol</td>
-    <td>Estado</td>
-    <td colspan="2">Operaciones</td>
-  </tr>
-  <% for( row of data ) { %>
-  <tr>
-    <td><%= row.dni %></td>
-    <td><%= row.nombre + " " + row.apellidos %></td>
-    <td><%= row.celular %></td>
-    <td><%= row.correo %></td>
-    <td><%= row.direccion %></td>
-    <td><%= row.genero %></td>
-    <td><%= row.cargo %></td>
-    <td><%= row.horario %></td>
-    <td><%= row.usuario %></td>
-    <td><%= row.contrasena %></td>
-    <td><%= row.rol %></td>
-    <% if (row.estado==1) { %>
-        <td>Activo</td>
-        <td>
-            <form action="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>" method="get">
-              <button type="submit"><i class="fas fa-ban"></i></button>
-            </form>
-          </td>
-    <% } else { %>
-        <td>Inactivo</td>
-        <td>
-          <form action="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>" method="get">
-            <button type="submit"><i class="fas fa-check"></i></button>
-          </form>
-        </td>
+<body>
+  <h2>Mantenimiento de empleados</h2>
+  <button id="btn-open-modal">Add</button>
+  <table>
+    <tr>
+      <th>Dni</th>
+      <th>Nombre</th>
+      <!-- <th>Celular</th> -->
+      <!-- <th>Correo</th> -->
+      <!-- <th>Direccion</th> -->
+      <!-- <th>Genero</th> -->
+      <th>Cargo</th>
+      <th>Horario</th>
+      <th>Usuario</th>
+      <th>Password</th>
+      <th>Rol</th>
+      <th>Estado</th>
+      <th>Operaciones</th>
+    </tr>
+    <% for( row of data[0] ) { %>
+    <tr>
+      <td><%= row.dni %></td>
+      <td><%= row.nombre + " " + row.apellidos %></td>
+      <!-- <td><%#= row.celular %></td> -->
+      <!-- <td><%#= row.correo %></td> -->
+      <!-- <td><%#= row.direccion %></td> -->
+      <!-- <td><%#= row.genero %></td> -->
+      <td><%= row.cargo %></td>
+      <td><%= row.horario %></td>
+      <td><%= row.usuario %></td>
+      <td><%= row.contrasena %></td>
+      <td><%= row.rol %></td>
+      <% if (row.estado==1) { %>
+      <td>Activo</td>
+      <td id="operaciones">
+        <form
+          action="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>"
+          method="get"
+        >
+          <button type="submit"><i class="fas fa-ban"></i></button>
+        </form>
+      <% } else { %>
+      <td>Inactivo</td>
+      <td id="operaciones">
+        <form
+          action="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>"
+          method="get"
+        >
+          <button type="submit"><i class="fas fa-check"></i></button>
+        </form>
+      <% } %>
+        <button type="button"><i class="fas fa-pen"></i></button>
+        <button type="button"><i class="fas fa-info"></i>Detalle</button>
+      </td>
+    </tr>
     <% } %>
-    <td><button type="button"><i class="fas fa-pen"></i></button></td>
-  </tr>
-  <% } %>
-</table>
+  </table>
+  <div class="modal-background-empleado">
+    <form class="modal-container-empleado" method="post" action="#">
+      <div class="modal-title-empleado">
+        <span>Nuevo empleado</span>
+        <button type="button" class="close-modal-empleado" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body-empleado">
+        <input
+          type="text"
+          id="dni"
+          placeholder="Ingrese DNI"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="nombre"
+          placeholder="Nombre"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="apellidos"
+          placeholder="Apellidos"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="celular"
+          placeholder="Celular"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="correo"
+          placeholder="Correo"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="direccion"
+          placeholder="Direccion"
+          autocomplete="off"
+        />
+        <select name="genero" id="genero">
+          <option disabled selected>Genero</option>
+          <option value="m">Masculino</option>
+          <option value="f">Femenino</option>
+        </select>
+        <select name="cargo" id="cargo" aria-placeholder="Cargo">
+          <option disabled selected>Cargo</option>
+          <% for( row of data[1] ) { %>
+            <option value="<%= row.codigo %>">
+              <%= row.cargo %> 
+            </option>
+          <% } %>
+        </select>
+        <select name="horario" id="horario" aria-placeholder="Horario">
+          <option disabled selected>Horario</option>
+          <% for( row of data[2] ) { %>
+            <option value="<%= row.codigo %>">
+              <%= row.descripcion+" "+ row.hora_inicio.substring(0,5) +" a "+row.hora_fin.substring(0,5) %>
+            </option>
+          <% } %>
+        </select>
+        <input
+          type="text"
+          id="usuario"
+          placeholder="Usuario"
+          autocomplete="off"
+        />
+        <input
+          type="password"
+          name="contrasena"
+          id="contrasena"
+          placeholder="Password"
+        />
+        <select name="rol" id="rol">
+          <option disabled selected>Rol</option>
+          <% for( row of data[3] ) { %>
+            <option value="<%= row.codigo %>">
+              <%= row.tipo %> 
+            </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="modal-footer-empleado">
+        <button type="button" id="btnCancel">
+          <i class="fas fa-ban"></i>Cancelar
+        </button>
+        <button type="submit"><i class="fas fa-check"></i>Guardar</button>
+      </div>
+    </form>
+  </div>
+  <script src="../../js/empleado.js"></script>
+</body>

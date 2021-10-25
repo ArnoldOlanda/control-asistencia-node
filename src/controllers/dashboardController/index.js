@@ -1,7 +1,8 @@
-const {listar,activar,desactivar} = require('./empleados')
+const {listar,activar,desactivar,registrar} = require('./empleados')
  
 module.exports = {
   listar,
   activar,
-  desactivar
+  desactivar,
+  registrar
 };

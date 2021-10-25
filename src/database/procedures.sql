@@ -12,3 +12,14 @@ END//
 
 #Reestablecemos el delimitador de nuevo a ';' 
 DELIMITER ; 
+
+#Procedimiento almacenado para obtener los registros de cargo,horario y tipo_usuario
+DELIMITER //
+CREATE PROCEDURE datosParaCrearEmpleado()
+BEGIN
+    SELECT * FROM cargo;
+    SELECT * FROM horario;
+    SELECT * FROM tipo_usuario;
+END//
+
+DELIMITER ;

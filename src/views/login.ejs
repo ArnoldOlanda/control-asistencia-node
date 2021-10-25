@@ -2,27 +2,29 @@
 include("template/navbar") %>
 <div class="login-container">
   <form action="/login/verifyLogin" method="post" id="formSubmit" class="form-container">
+    <h2>Inicio de sesion</h2>
     <div class="input-container">
-      <% if(messageError.userBadPassword) {%>
-        <input
-        type="text"
-        class="input"
-        name="user"
-        id="user"
-        placeholder="Usuario"
-        autocomplete="off"
-        value="<%= messageError.userBadPassword %>"
-        />
-      <% } else {%>
-        <input
-        type="text"
-        class="input"
-        name="user"
-        id="user"
-        placeholder="Usuario"
-        autocomplete="off"
-      />
-      <% } %>
+      <div class="input">
+        <div class="icon-container"><i class="fas fa-user-alt"></i></div>
+        <% if(messageError.userBadPassword) {%>
+          <input
+          type="text"
+          name="user"
+          id="user"
+          placeholder="Usuario"
+          autocomplete="off"
+          value="<%= messageError.userBadPassword %>"
+          />
+        <% } else {%>
+          <input
+            type="text"
+            name="user"
+            id="user"
+            placeholder="Usuario"
+            autocomplete="off"
+          />
+        <% } %>
+      </div>
       <p class="message-error" id="userMessageError">
         <% if (messageError.messageUserNotFound) { %>
           <%= messageError.messageUserNotFound %>
@@ -30,12 +32,15 @@ include("template/navbar") %>
       </p>
     </div>
     <div class="input-container">
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-      />
+      <div class="input">
+        <div class="icon-container"><i class="fas fa-lock"></i></div>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+      </div>
       <p class="message-error" id="passwordMessageError">
         <% if (messageError.messageBadPassword) { %>
           <%= messageError.messageBadPassword %></p>
