@@ -191,10 +191,12 @@ table{
             gap:2px;
             button{
                 @include btn();
-                width: 75px;
+                width: 40px;
                 border:1px solid $primary-color;
                 background: none;
             }
         }
     }
 }
+
+// sass src/scss/empleado.scss src/public/css/empleado.css --watch

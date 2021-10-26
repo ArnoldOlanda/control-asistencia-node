@@ -213,7 +213,7 @@ table tr #operaciones button {
   gap: 5px;
   outline: none;
   transition: 0.2s background ease;
-  width: 75px;
+  width: 40px;
   border: 1px solid #6e1bcc;
   background: none;
 }

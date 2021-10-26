@@ -36,7 +36,7 @@
       <!-- <td><%#= row.genero %></td> -->
       <td><%= row.cargo %></td>
       <td><%= row.horario %></td>
-      <td><%= row.usuario %></td>
+      <td><%= row.dni %></td>
       <td><%= row.contrasena %></td>
       <td><%= row.rol %></td>
       <% if (row.estado==1) { %>
@@ -46,7 +46,7 @@
           action="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>"
           method="get"
         >
-          <button type="submit"><i class="fas fa-ban"></i></button>
+          <button type="submit"><span title="Desactivar empleado"><i class="fas fa-ban"></i></span></button>
         </form>
       <% } else { %>
       <td>Inactivo</td>
@@ -55,17 +55,17 @@
           action="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>"
           method="get"
         >
-          <button type="submit"><i class="fas fa-check"></i></button>
+          <button type="submit"><span title="Activar empleado"><i class="fas fa-check"></i></span></button>
         </form>
       <% } %>
-        <button type="button"><i class="fas fa-pen"></i></button>
-        <button type="button"><i class="fas fa-info"></i>Detalle</button>
+        <button type="button"><span title="Editar"><i class="fas fa-pen"></i></span></button>
+        <button type="button"><span title="Detalles"><i class="fas fa-info"></i></span></button>
       </td>
     </tr>
     <% } %>
   </table>
   <div class="modal-background-empleado">
-    <form class="modal-container-empleado" method="post" action="#">
+    <form class="modal-container-empleado" id="formRegisterUpdate" method="post" action="/dashboard/mantenimientoEmpleado/registrar">
       <div class="modal-title-empleado">
         <span>Nuevo empleado</span>
         <button type="button" class="close-modal-empleado" id="closeModal">
@@ -76,45 +76,55 @@
         <input
           type="text"
           id="dni"
+          name="dni"
           placeholder="Ingrese DNI"
           autocomplete="off"
+          required
         />
         <input
           type="text"
           id="nombre"
+          name="nombre"
           placeholder="Nombre"
           autocomplete="off"
+          required
         />
         <input
           type="text"
           id="apellidos"
+          name="apellidos"
           placeholder="Apellidos"
           autocomplete="off"
+          required
         />
         <input
           type="text"
           id="celular"
+          name="celular"
           placeholder="Celular"
           autocomplete="off"
         />
         <input
           type="text"
           id="correo"
+          name="correo"
           placeholder="Correo"
           autocomplete="off"
+          required
         />
         <input
           type="text"
           id="direccion"
+          name="direccion"
           placeholder="Direccion"
           autocomplete="off"
         />
-        <select name="genero" id="genero">
+        <select name="genero" id="genero" required>
           <option disabled selected>Genero</option>
           <option value="m">Masculino</option>
           <option value="f">Femenino</option>
         </select>
-        <select name="cargo" id="cargo" aria-placeholder="Cargo">
+        <select name="cargo" id="cargo" aria-placeholder="Cargo" required>
           <option disabled selected>Cargo</option>
           <% for( row of data[1] ) { %>
             <option value="<%= row.codigo %>">
@@ -122,7 +132,7 @@
             </option>
           <% } %>
         </select>
-        <select name="horario" id="horario" aria-placeholder="Horario">
+        <select name="horario" id="horario" aria-placeholder="Horario" required>
           <option disabled selected>Horario</option>
           <% for( row of data[2] ) { %>
             <option value="<%= row.codigo %>">
@@ -133,16 +143,19 @@
         <input
           type="text"
           id="usuario"
+          name="usuario"
           placeholder="Usuario"
           autocomplete="off"
+          disabled
         />
         <input
           type="password"
           name="contrasena"
           id="contrasena"
           placeholder="Password"
+          required
         />
-        <select name="rol" id="rol">
+        <select name="rol" id="rol" required>
           <option disabled selected>Rol</option>
           <% for( row of data[3] ) { %>
             <option value="<%= row.codigo %>">

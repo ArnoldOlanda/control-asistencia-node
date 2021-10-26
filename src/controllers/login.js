@@ -14,7 +14,7 @@ module.exports = {
 
     //Busqueda el usuario
     conn.query(
-      `select nombre from empleado where usuario='${user}'`,
+      `select nombre from empleado where dni='${user}'`,
       (err, result) => {
         if (err) throw err;
         if (result.length<1) {
@@ -27,7 +27,7 @@ module.exports = {
         } else {
           //Validacion de la contraseña
           conn.query(
-            `select nombre from empleado where usuario='${user}' and contrasena='${password}'`,
+            `select nombre from empleado where dni='${user}' and contrasena='${password}'`,
             (err, result) => {
               if (err) throw err;
               if (result.length<1) {
