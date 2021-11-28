@@ -4,7 +4,7 @@ const conn = dbConnection();
 module.exports = {
   listar: (req, res) => {
     let data = [];
-    if (req.session.username) {
+    if (req.session.username) { //valida sesion activa
       conn.query("CALL listarEmpleados;", (err, results1) => {
         if (err) throw err;
         else {
@@ -21,6 +21,13 @@ module.exports = {
         }
       });
     } else res.redirect("/login");
+  },
+  consulta:(req,res)=>{
+    const {dni} = req.params
+    conn.query("CALL sp_busca_empleado(?)",[dni],(err,results)=>{
+      if(err) throw err
+      else res.json({data:results[0]})
+    })
   },
   activar: (req, res) => {
     const { dni } = req.params;
@@ -66,7 +73,7 @@ module.exports = {
       data,
       (err, results) => {
         if (err) throw err;
-        else res.send("recibido");
+        else res.redirect("/dashboard/mantenimientoEmpleado");
       }
     );
   },

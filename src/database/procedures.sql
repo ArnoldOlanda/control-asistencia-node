@@ -41,3 +41,15 @@ BEGIN
     insert into empleado values(dni,nom,ape,cel,direc,gen,carg,hor,usu,pass);
 END//
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_busca_empleado (in documento varchar(8))
+BEGIN
+    SELECT e.dni,e.nombre,e.apellidos,e.celular,e.correo,e.direccion,e.genero
+    ,c.cargo ,h.descripcion 'horario',e.contrasena,t.tipo 'rol',e.estado FROM `empleado`as e 
+    INNER join cargo as c on e.cod_cargo = c.codigo 
+    inner join horario as h on e.cod_horario=h.codigo 
+    INNER JOIN tipo_usuario AS t on e.tipo_usu=t.codigo
+    where e.dni=documento;
+END//
+DELIMITER ;

@@ -31,3 +31,20 @@ txtdni.addEventListener('keyup',(e)=>{
   txtusuario.setAttribute('value',e.target.value);
   txtusuario.innerText(e.target.value);
 })
+
+const buttonsDetails=document.querySelectorAll('.openModalShowDetails')
+//inputs del modal
+
+
+buttonsDetails.forEach(element => {
+  element.addEventListener("click",()=>{
+    //console.log(element.childNodes[1].value)
+    fetch(`/dashboard/mantenimientoEmpleado/detalle/${element.childNodes[1].value}`)
+    .then(res=>res.json())
+    .then(data=>console.log(data.data))
+
+    modalBackground.classList.add("show-background-empleado")
+    modalContainer.classList.add("show-modal-empleado")
+  })
+
+});

@@ -202,7 +202,7 @@ table tr #operaciones {
   justify-content: center;
   gap: 2px;
 }
-table tr #operaciones button {
+table tr #operaciones a, table tr #operaciones button {
   width: 100px;
   height: 30px;
   border-radius: 5px;
@@ -216,6 +216,14 @@ table tr #operaciones button {
   width: 40px;
   border: 1px solid #6e1bcc;
   background: none;
+  text-decoration: none;
+  color: #000;
+}
+table tr #operaciones a:visited, table tr #operaciones button:visited {
+  color: #000;
+}
+table tr #operaciones a:hover, table tr #operaciones button:hover {
+  background-color: #dadada;
 }
 
 /*# sourceMappingURL=empleado.css.map */

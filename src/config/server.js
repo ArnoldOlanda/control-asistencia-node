@@ -12,6 +12,7 @@ app.set("views", path.join(__dirname,"../views"));
 app.set("port", process.env.port || 4000);
 
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 app.use(express.static(path.join(__dirname,"../public")));
 app.use(session({
   secret:'secret-key',

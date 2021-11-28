@@ -42,24 +42,26 @@
       <% if (row.estado==1) { %>
       <td>Activo</td>
       <td id="operaciones">
-        <form
-          action="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>"
-          method="get"
-        >
-          <button type="submit"><span title="Desactivar empleado"><i class="fas fa-ban"></i></span></button>
-        </form>
+          <a href="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>">
+            <span title="Desactivar empleado"><i class="fas fa-ban"></i></span>
+          </a>
       <% } else { %>
       <td>Inactivo</td>
       <td id="operaciones">
-        <form
-          action="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>"
-          method="get"
-        >
-          <button type="submit"><span title="Activar empleado"><i class="fas fa-check"></i></span></button>
-        </form>
+          <a href="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>">
+            <span title="Activar empleado"><i class="fas fa-check"></i></span>
+          </a>
       <% } %>
-        <button type="button"><span title="Editar"><i class="fas fa-pen"></i></span></button>
-        <button type="button"><span title="Detalles"><i class="fas fa-info"></i></span></button>
+        <button type="button">
+          <span title="Editar"></span><i class="fas fa-pen"></i></span>
+        </button>
+        <!-- <a href="/dashboard/mantenimientoEmpleado/detalle/">
+          <span title="Detalles"><i class="fas fa-info"></i></span>
+        </a> -->
+        <button class="openModalShowDetails">
+          <input type="hidden" value="<%= row.dni %> ">
+          <span title="Detalles"><i class="fas fa-info"></i></span>
+        </button>
       </td>
     </tr>
     <% } %>

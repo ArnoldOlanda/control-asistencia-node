@@ -189,11 +189,19 @@ table{
             display: flex;
             justify-content: center;
             gap:2px;
-            button{
+            a,button{
                 @include btn();
                 width: 40px;
                 border:1px solid $primary-color;
                 background: none;
+                text-decoration: none;
+                color:#000;
+                &:visited{
+                  color:#000;
+                }
+                &:hover{
+                  background-color: rgb(218, 218, 218);
+                }
             }
         }
     }
