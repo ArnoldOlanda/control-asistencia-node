@@ -52,14 +52,15 @@
             <span title="Activar empleado"><i class="fas fa-check"></i></span>
           </a>
       <% } %>
-        <button type="button">
+        <button type="button" class="openModalUpdate">
+          <input type="hidden" value="<%= row.dni %> ">
           <span title="Editar"></span><i class="fas fa-pen"></i></span>
         </button>
         <!-- <a href="/dashboard/mantenimientoEmpleado/detalle/">
           <span title="Detalles"><i class="fas fa-info"></i></span>
         </a> -->
-        <button class="openModalShowDetails">
-          <input type="hidden" value="<%= row.dni %> ">
+        <button >
+          <!-- <input type="hidden" value="<%= row.dni %> "> -->
           <span title="Detalles"><i class="fas fa-info"></i></span>
         </button>
       </td>

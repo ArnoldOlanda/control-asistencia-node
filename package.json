@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "rs":"sass src/scss/style.scss src/public/css/style.css --watch",
+    "rs": "sass src/scss/style.scss src/public/css/style.css --watch",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },

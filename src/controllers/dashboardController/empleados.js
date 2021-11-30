@@ -26,7 +26,10 @@ module.exports = {
     const {dni} = req.params
     conn.query("CALL sp_busca_empleado(?)",[dni],(err,results)=>{
       if(err) throw err
-      else res.json({data:results[0]})
+      else {
+        //console.log(results[0])
+        res.json({data:results[0]})
+      }
     })
   },
   activar: (req, res) => {

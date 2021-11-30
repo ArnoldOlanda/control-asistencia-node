@@ -7,7 +7,7 @@ module.exports = () => {
   return mysql.createConnection({
     host:'localhost',
     user: 'root',
-    password:'root',
+    password:'admin',
     database: 'control_asistencia'
   });
 };
