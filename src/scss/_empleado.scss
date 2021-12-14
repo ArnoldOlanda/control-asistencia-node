@@ -5,13 +5,6 @@ $secondary-color: rgb(255, 255, 255);
 $font-nav-color: silver;
 $font-nav-color-hover: #fff;
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-}
-
 @mixin btn {
     width: 100px;
     height: 30px;
@@ -154,17 +147,15 @@ $font-nav-color-hover: #fff;
   }
 }
 
-.show-background-empleado {
-  z-index: 100;
-  opacity: 1;
-}
-.show-modal-empleado {
-  opacity: 1;
-  transform: scale(1);
-}
-body{
-    padding: 20px;
-}
+// .show-background-empleado {
+//   z-index: 100;
+//   opacity: 1;
+// }
+// .show-modal-empleado {
+//   opacity: 1;
+//   transform: scale(1);
+// }
+
 #btn-open-modal{
     @include btn();
     background-color: $primary-color;

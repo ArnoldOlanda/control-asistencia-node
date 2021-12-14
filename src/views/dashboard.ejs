@@ -2,42 +2,9 @@
 <%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %> 
 
 <div class="dashboard-container">
-    <div class="side-bar-container">
-        <ul>
-            <li><a href="/dashboard/mantenimientoEmpleado/" target="frame">
-                <div class="icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                Empleados</a></li>
-            <li><a href="/dashboard/mantenimientoHorario" target="frame">
-                <div class="icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                Horarios</a></li>
-            <li><a href="/dashboard/calendario" target="frame">
-                <div class="icon">
-                    <i class="fas fa-calendar-day"></i>
-                </div>
-                Calendario</a></li>
-            <li><a href="/dashboard/feriados" target="frame">
-                <div class="icon">
-                    <i class="fas fa-umbrella-beach"></i>
-                </div>
-                Feriados</a></li>
-            <li><a href="/dashboard/reportes" target="frame">
-                <div class="icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                Reportes</a></li>
-            <li><a href="/dashboard/estadisticas" target="frame">
-                <div class="icon">
-                    <i class="fas fa-chart-bar"></i>
-                </div>
-                Estadisticas</a></li>
-        </ul>
-    </div>
+    <%- include("template/sidebar") %> 
     <div class="content">
-        <iframe name="frame"></iframe>
+        <h1>Administracion del Sistema</h1>
     </div>
 </div>
 

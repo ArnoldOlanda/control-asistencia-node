@@ -1,179 +1,162 @@
-<head>
-  <link rel="stylesheet" href="/css/empleado.css" />
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-    crossorigin="anonymous"
-  />
-</head>
-<body>
-  <h2>Mantenimiento de empleados</h2>
-  <button id="btn-open-modal">Add</button>
-  <table>
-    <tr>
-      <th>Dni</th>
-      <th>Nombre</th>
-      <!-- <th>Celular</th> -->
-      <!-- <th>Correo</th> -->
-      <!-- <th>Direccion</th> -->
-      <!-- <th>Genero</th> -->
-      <th>Cargo</th>
-      <th>Horario</th>
-      <th>Usuario</th>
-      <th>Password</th>
-      <th>Rol</th>
-      <th>Estado</th>
-      <th>Operaciones</th>
-    </tr>
-    <% for( row of data[0] ) { %>
-    <tr>
-      <td><%= row.dni %></td>
-      <td><%= row.nombre + " " + row.apellidos %></td>
-      <!-- <td><%#= row.celular %></td> -->
-      <!-- <td><%#= row.correo %></td> -->
-      <!-- <td><%#= row.direccion %></td> -->
-      <!-- <td><%#= row.genero %></td> -->
-      <td><%= row.cargo %></td>
-      <td><%= row.horario %></td>
-      <td><%= row.dni %></td>
-      <td><%= row.contrasena %></td>
-      <td><%= row.rol %></td>
-      <% if (row.estado==1) { %>
-      <td>Activo</td>
-      <td id="operaciones">
-          <a href="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>">
-            <span title="Desactivar empleado"><i class="fas fa-ban"></i></span>
-          </a>
-      <% } else { %>
-      <td>Inactivo</td>
-      <td id="operaciones">
-          <a href="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>">
-            <span title="Activar empleado"><i class="fas fa-check"></i></span>
-          </a>
-      <% } %>
-        <button type="button" class="openModalUpdate">
-          <input type="hidden" value="<%= row.dni %> ">
-          <span title="Editar"></span><i class="fas fa-pen"></i></span>
-        </button>
-        <!-- <a href="/dashboard/mantenimientoEmpleado/detalle/">
-          <span title="Detalles"><i class="fas fa-info"></i></span>
-        </a> -->
-        <button >
-          <!-- <input type="hidden" value="<%= row.dni %> "> -->
-          <span title="Detalles"><i class="fas fa-info"></i></span>
-        </button>
-      </td>
-    </tr>
-    <% } %>
-  </table>
-  <div class="modal-background-empleado">
-    <form class="modal-container-empleado" id="formRegisterUpdate" method="post" action="/dashboard/mantenimientoEmpleado/registrar">
-      <div class="modal-title-empleado">
-        <span>Nuevo empleado</span>
-        <button type="button" class="close-modal-empleado" id="closeModal">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body-empleado">
-        <input
-          type="text"
-          id="dni"
-          name="dni"
-          placeholder="Ingrese DNI"
-          autocomplete="off"
-          required
-        />
-        <input
-          type="text"
-          id="nombre"
-          name="nombre"
-          placeholder="Nombre"
-          autocomplete="off"
-          required
-        />
-        <input
-          type="text"
-          id="apellidos"
-          name="apellidos"
-          placeholder="Apellidos"
-          autocomplete="off"
-          required
-        />
-        <input
-          type="text"
-          id="celular"
-          name="celular"
-          placeholder="Celular"
-          autocomplete="off"
-        />
-        <input
-          type="text"
-          id="correo"
-          name="correo"
-          placeholder="Correo"
-          autocomplete="off"
-          required
-        />
-        <input
-          type="text"
-          id="direccion"
-          name="direccion"
-          placeholder="Direccion"
-          autocomplete="off"
-        />
-        <select name="genero" id="genero" required>
-          <option disabled selected>Genero</option>
-          <option value="m">Masculino</option>
-          <option value="f">Femenino</option>
-        </select>
-        <select name="cargo" id="cargo" aria-placeholder="Cargo" required>
-          <option disabled selected>Cargo</option>
-          <% for( row of data[1] ) { %>
-            <option value="<%= row.codigo %>">
-              <%= row.cargo %> 
-            </option>
+
+  <%- include("template/cabecera",{titulo:"Dashboard|Admin"}) %>
+  <%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %> 
+  
+  <div class="dashboard-container">
+      <%- include("template/sidebar") %> 
+      <div class="content">
+        <h2>Mantenimiento de empleados</h2>
+        <button id="btn-open-modal">Add</button>
+        <table>
+          <tr>
+            <th>Dni</th>
+            <th>Nombre</th>
+            <!-- <th>Celular</th> -->
+            <!-- <th>Correo</th> -->
+            <!-- <th>Direccion</th> -->
+            <!-- <th>Genero</th> -->
+            <th>Cargo</th>
+            <th>Horario</th>
+            <th>Usuario</th>
+            <th>Password</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Operaciones</th>
+          </tr>
+          <% for( row of data[0] ) { %>
+          <tr>
+            <td><%= row.dni %></td>
+            <td><%= row.nombre + " " + row.apellidos %></td>
+            <!-- <td><%#= row.celular %></td> -->
+            <!-- <td><%#= row.correo %></td> -->
+            <!-- <td><%#= row.direccion %></td> -->
+            <!-- <td><%#= row.genero %></td> -->
+            <td><%= row.cargo %></td>
+            <td><%= row.horario %></td>
+            <td><%= row.dni %></td>
+            <td><%= row.contrasena %></td>
+            <td><%= row.rol %></td>
+            <% if (row.estado==1) { %>
+            <td>Activo</td>
+            <td id="operaciones">
+                <a href="/dashboard/mantenimientoEmpleado/desactive/<%= row.dni %>">
+                  <span title="Desactivar empleado"><i class="fas fa-ban"></i></span>
+                </a>
+            <% } else { %>
+            <td>Inactivo</td>
+            <td id="operaciones">
+                <a href="/dashboard/mantenimientoEmpleado/activate/<%= row.dni %>">
+                  <span title="Activar empleado"><i class="fas fa-check"></i></span>
+                </a>
+            <% } %>
+              <button type="button" class="openModalUpdate">
+                <input type="hidden" value="<%= row.dni %> ">
+                <span title="Editar"></span><i class="fas fa-pen"></i></span>
+              </button>
+              <button >
+                <span title="Detalles"><i class="fas fa-info"></i></span>
+              </button>
+            </td>
+          </tr>
           <% } %>
-        </select>
-        <select name="horario" id="horario" aria-placeholder="Horario" required>
-          <option disabled selected>Horario</option>
-          <% for( row of data[2] ) { %>
-            <option value="<%= row.codigo %>">
-              <%= row.descripcion+" "+ row.hora_inicio.substring(0,5) +" a "+row.hora_fin.substring(0,5) %>
-            </option>
-          <% } %>
-        </select>
-        <input
-          type="text"
-          id="usuario"
-          name="usuario"
-          placeholder="Usuario"
-          autocomplete="off"
-          disabled
-        />
-        <input
-          type="password"
-          name="contrasena"
-          id="contrasena"
-          placeholder="Password"
-          required
-        />
-        <select name="rol" id="rol" required>
-          <option disabled selected>Rol</option>
-          <% for( row of data[3] ) { %>
-            <option value="<%= row.codigo %>">
-              <%= row.tipo %> 
-            </option>
-          <% } %>
-        </select>
+        </table>
+        <div class="modal-background-empleado">
+          <form class="modal-container-empleado" id="formRegisterUpdate" method="post" action="/dashboard/mantenimientoEmpleado/regOrUpdate">
+            <div class="modal-title-empleado">
+              <span>Nuevo empleado</span>
+              <button type="button" class="close-modal-empleado" id="closeModal">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body-empleado">
+              <input
+                type="text"
+                id="dni"
+                name="dni"
+                placeholder="Ingrese DNI"
+                autocomplete="off"
+                required
+              />
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre"
+                autocomplete="off"
+                required
+              />
+              <input
+                type="text"
+                id="apellidos"
+                name="apellidos"
+                placeholder="Apellidos"
+                autocomplete="off"
+                required
+              />
+              <input
+                type="text"
+                id="celular"
+                name="celular"
+                placeholder="Celular"
+                autocomplete="off"
+              />
+              <input
+                type="text"
+                id="correo"
+                name="correo"
+                placeholder="Correo"
+                autocomplete="off"
+                required
+              />
+              <input
+                type="text"
+                id="direccion"
+                name="direccion"
+                placeholder="Direccion"
+                autocomplete="off"
+              />
+              <select name="genero" id="genero" required>
+                <option value='0' disabled selected>Genero</option>
+                <option value="m">Masculino</option>
+                <option value="f">Femenino</option>
+              </select>
+              <select name="cargo" id="cargo" aria-placeholder="Cargo" required>
+                <option value='0' disabled selected>Cargo</option>
+              </select>
+              <select name="horario" id="horario" aria-placeholder="Horario" required>
+                <option value='0' disabled selected>Horario</option>
+              </select>
+              <input
+                type="text"
+                id="usuario"
+                name="usuario"
+                placeholder="Usuario"
+                autocomplete="off"
+                disabled
+              />
+              <input
+                type="password"
+                name="contrasena"
+                id="contrasena"
+                placeholder="Password"
+                required
+              />
+              <select name="rol" id="rol" required>
+                <option value='0' disabled selected>Rol</option>
+              </select>
+            </div>
+            <div class="modal-footer-empleado">
+              <button type="button" id="btnCancel">
+                <i class="fas fa-ban"></i>Cancelar
+              </button>
+              <input type="hidden" value="insertar" id="accion" name="accion">
+              <button type="submit"><i class="fas fa-check"></i>Guardar</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="modal-footer-empleado">
-        <button type="button" id="btnCancel">
-          <i class="fas fa-ban"></i>Cancelar
-        </button>
-        <button type="submit"><i class="fas fa-check"></i>Guardar</button>
-      </div>
-    </form>
   </div>
-  <script src="../../js/empleado.js"></script>
-</body>
+  
+  <%- include("template/footer",{page:"dashboard"}) %> 
+
+
