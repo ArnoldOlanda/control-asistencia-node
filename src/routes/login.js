@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const loginRouter = Router();
-const {verifyLogin} = require('../controllers')
+const {verifyLogin} = require('../controllers/loginController')
 
 loginRouter.get('/',(req,res)=>{
     res.render("login", { messageError: {},page:"login" });

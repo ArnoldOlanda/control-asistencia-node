@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
+const { index,marcar } = require("../controllers/controlAsistenciaController");
 
-router.post('/marcar',(req,res)=>{
-    res.send("Asistencia registrada")
-})
+router.get("/",index);
+router.post("/marcar", marcar);
 
-module.exports=router;
+module.exports = router;

@@ -67,3 +67,48 @@ BEGIN
     end if;
 END//
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_lista_horarios()
+BEGIN
+    SELECT * FROM horario;
+END//
+
+DELIMITER ;
+
+delimiter //
+create procedure sp_inserta_actualiza_horario(
+	in cod int,
+    in descrip varchar(50),
+    in inicio time,
+    in fin time,
+    in accion varchar(50))
+begin
+	if accion='insertar' then
+		insert into horario(descripcion,hora_inicio,hora_fin) values(descrip,inicio,fin);
+	end if;
+    if accion='actualizar' then
+		update horario set
+        descripcion=descrip,
+        hora_inicio=inicio,
+        hora_fin=fin
+        where codigo=cod;
+    end if;
+end//
+
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_horario(in cod int)
+BEGIN
+    delete from horario where codigo=cod;
+END//
+
+DELIMITER ;
+-- describe empleado;
+-- describe asistencia;
+
+DELIMITER //
+CREATE PROCEDURE sp_obtener_horario_empleado(in cod int)
+begin
+	set @codHorario=(select cod_horario from empleado where dni=cod);
+	select h.hora_inicio,h.hora_fin from horario h where h.codigo=@codHorario;
+end//

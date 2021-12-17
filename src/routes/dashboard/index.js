@@ -2,6 +2,7 @@ const { Router } = require("express");
 const dashboardRouter = Router();
 
 const empleadosRouter = require('./empleadosRouter')
+const horariosRouter = require('./horariosRouter')
 
 dashboardRouter.get("/", (req, res) => {
   if (req.session.username) {
@@ -14,15 +15,7 @@ dashboardRouter.get("/", (req, res) => {
 
 dashboardRouter.use("/mantenimientoEmpleado", empleadosRouter);
 
-dashboardRouter.get("/mantenimientoUsuario", (req, res) => {
-  if (req.session.username) res.send("mantenimiento usuario");
-  else res.redirect("/login");
-});
-
-dashboardRouter.get("/mantenimientoHorario", (req, res) => {
-  if (req.session.username) res.send("mantenimiento horario");
-  else res.redirect("/login");
-});
+dashboardRouter.use("/mantenimientoHorario", horariosRouter);
 
 dashboardRouter.get("/calendario", (req, res) => {
   if (req.session.username) res.send("calendario");

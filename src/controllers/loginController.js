@@ -41,7 +41,5 @@ module.exports = {
           );
         }
       });
-  },
-  other:(req,res)=>{
   }
 };

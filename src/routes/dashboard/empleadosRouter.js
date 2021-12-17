@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { listar,consulta, activar,desactivar,registrarActualizar,formData } = require('../../controllers/dashboardController');
+const { listar,consulta, activar,desactivar,registrarActualizar,formData } = require('../../controllers/dashboard/empleadosController');
 
 
 router.get('/',listar)
