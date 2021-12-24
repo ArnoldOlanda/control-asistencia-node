@@ -110,5 +110,41 @@ DELIMITER //
 CREATE PROCEDURE sp_obtener_horario_empleado(in cod int)
 begin
 	set @codHorario=(select cod_horario from empleado where dni=cod);
-	select h.hora_inicio,h.hora_fin from horario h where h.codigo=@codHorario;
+	select h.hora_inicio,h.hora_fin,h.codigo from horario h where h.codigo=@codHorario;
 end//
+
+-- drop procedure sp_registrar_asistencia
+DELIMITER //
+CREATE PROCEDURE sp_registrar_asistencia(
+	in fecha_ date,
+    in cod varchar(8),
+    in hora time,
+    in horario int,
+    in tarde_ char(1),
+    in descuento_ float)
+begin
+	set @existeIngreso=(select codigo from asistencia where fecha=fecha_ and cod_empleado=cod);
+    set @existeSalida=(select codigo from asistencia where fecha=fecha_ and cod_empleado=cod and hora_salida is not null);
+    
+    if @existeIngreso is null then
+		insert into asistencia (fecha,cod_empleado,hora_ingreso,cod_horario,tarde,descuento)
+		values(fecha_,cod,hora,horario,tarde_,descuento_);
+	elseif @existeIngreso is not null and @existeSalida is null then
+		update asistencia set
+        hora_salida=hora
+        where fecha=fecha_ and cod_empleado=cod;
+	elseif @existeIngreso is not null and @existeSalida is not null then
+		set @message="ERROR: Este empleado ya registró su asistencia para el dia de hoy";
+        select @message 'mensaje';
+    end if;
+end//
+
+describe horario;
+select a.cod_empleado,concat_ws(" ",e.apellidos,e.nombre)'nombre' ,
+a.hora_ingreso,a.hora_salida,h.descripcion from asistencia a inner join empleado e 
+on a.cod_empleado=e.dni inner join horario h 
+on a.cod_horario=h.codigo;
+
+truncate table asistencia;
+select * from asistencia;
+

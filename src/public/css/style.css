@@ -2,7 +2,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
 
@@ -50,6 +50,27 @@
   width: 100%;
   height: calc(100vh - 50px);
   background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.main-container .fecha-container {
+  text-align: center;
+  margin-top: 20px;
+  width: 50%;
+  height: 10vh;
+}
+.main-container .reloj-container {
+  width: 50%;
+  height: 20vh;
+  text-align: center;
+}
+.main-container .reloj-container h1 {
+  display: inline;
+  font-size: 60px;
+}
+.main-container .reloj-container span {
+  font-size: 30px;
 }
 
 .modal-background {

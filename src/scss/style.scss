@@ -9,7 +9,7 @@ $font-nav-color-hover: #fff;
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto',Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
 
@@ -93,6 +93,28 @@ $font-nav-color-hover: #fff;
   width: 100%;
   height: calc(100vh - 50px);
   background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .fecha-container{
+    text-align: center;
+    margin-top: 20px;
+    width: 50%;
+    height: 10vh;
+  }
+  .reloj-container{
+    width: 50%;
+    height: 20vh;
+    text-align: center;
+    h1{
+      display: inline;
+      font-size: 60px;
+    }
+    span{
+      font-size: 30px;
+    }
+  }
+
 }
 .modal-background{
     @include bg-modal();
@@ -163,6 +185,7 @@ $font-nav-color-hover: #fff;
     }
   }
 }
+
 @import "empleado";
 @import "horario";
 
@@ -305,3 +328,4 @@ $font-nav-color-hover: #fff;
   }
 }
 
+// sass src/scss/style.scss src/public/css/style.css --watch

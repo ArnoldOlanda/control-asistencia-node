@@ -1,33 +1,29 @@
 <%- include("template/cabecera",{titulo:"Sistema de asistencia"}) %> <%-
 include("template/navbar") %>
 <div class="main-container">
+  <% if (errmsg!="") { %>
+    <p style="color:red;"><%= errmsg %></p>
+  <% } %>
+
   <div class="fecha-container">
-    <h3 id="fecha">-</h3>
+    <h2 id="fecha">-</h2>
   </div>
   <div class="reloj-container">
-    <h1>Hora del sistema</h1>
+    <h4>Hora del sistema</h4>
     <h1 id="reloj">-</h1>
     <span id="ampm">-</span>
   </div>
   <button id="btn-open-modal">Marcar asistencia</button>
-  <div class="registros-entrada-container">
+  <!-- <div class="registros-entrada-container">
     <table class="registros-entrada" border="1">
       <tr>
-        <td>Nro</td>
-        <td>Codigo</td>
-        <td>Nombre</td>
-        <td>Hora</td>
-        <td>Retraso</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>70606804</td>
-        <td>Arnold</td>
-        <td>11:33 am</td>
-        <td>Si</td>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Hora</th>
+        <th>Retraso</th>
       </tr>
     </table>
-  </div>
+  </div> -->
   <div class="modal-background">
     <form class="modal-container" method="post" action="/marcar">
       <div class="modal-title">
