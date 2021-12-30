@@ -1,29 +1,19 @@
-const dbConnection = require("../../config/dbConnection");
-const conn = dbConnection();
+const  Horario  = require("../../models/horarioModel");
 
 module.exports={
     listar:(req,res)=>{
-        username=req.session.username
-        conn.query("CALL sp_lista_horarios;", (err, results) => {
-        if (err) throw err;
-        else {
-          res.render("horario", { data: results[0],nombreUsuario: username, page: "" });
-        }
-      });
+        username=req.session.username;
+        const horario=new Horario();
+        horario.listar(res,username);
     },
     registrarActualizar:(req,res)=>{
-      console.log(req.body)
       let {codigo,descripcion,horaInicio,horaFin,accion}=req.body
-      conn.query("CALL sp_inserta_actualiza_horario(?,?,?,?,?)",[parseInt(codigo),descripcion,horaInicio,horaFin,accion],(err)=>{
-        if(err) throw err;
-        else res.redirect('/dashboard/mantenimientoHorario')
-      })
+      const horario=new Horario()
+      horario.registrarActualizar(res,codigo,descripcion,horaInicio,horaFin,accion)
     },
     eliminar:(req,res)=>{
       let {codigo}=req.params
-      conn.query("CALL sp_eliminar_horario(?)",[parseInt(codigo)],(err)=>{
-        if(err) throw err
-        else res.redirect('/dashboard/mantenimientoHorario')
-      })
+      const horario=new Horario()
+      horario.eliminar(res,codigo)
     }
 }

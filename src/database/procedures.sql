@@ -126,25 +126,60 @@ begin
 	set @existeIngreso=(select codigo from asistencia where fecha=fecha_ and cod_empleado=cod);
     set @existeSalida=(select codigo from asistencia where fecha=fecha_ and cod_empleado=cod and hora_salida is not null);
     
-    if @existeIngreso is null then
+    set @horarioEmpleado=(select hora_fin from horario where codigo=horario);
+    set @horaSalida=(select extract(HOUR from @horarioEmpleado));
+    set @minutoSalida=(select extract(MINUTE FROM @horarioEmpleado));
+    set @horaSalidaMarcada=(select extract(HOUR from hora));
+    set @minutoSalidaMarcado=(select extract(MINUTE from hora));
+    
+    if @existeIngreso is null then -- no existe ingreso
 		insert into asistencia (fecha,cod_empleado,hora_ingreso,cod_horario,tarde,descuento)
 		values(fecha_,cod,hora,horario,tarde_,descuento_);
+        set @message="Asistencia de ingreso registrada";
+        select @message 'mensaje';
 	elseif @existeIngreso is not null and @existeSalida is null then
-		update asistencia set
-        hora_salida=hora
-        where fecha=fecha_ and cod_empleado=cod;
+		if @horaSalidaMarcada >= @horaSalida and @minutoSalidaMarcado >= @minutoSalida then
+			update asistencia set
+			hora_salida=hora
+			where fecha=fecha_ and cod_empleado=cod;
+			set @message="Asistencia de salida registrada";
+			select @message 'mensaje';
+		else
+			set @message="Aun no se puede registrar la asistencia "+ @horaSalidaMarcada + @minutoSalidaMarcado;
+			select @message 'mensaje';
+        end if;
 	elseif @existeIngreso is not null and @existeSalida is not null then
 		set @message="ERROR: Este empleado ya registró su asistencia para el dia de hoy";
         select @message 'mensaje';
     end if;
 end//
 
-describe horario;
-select a.cod_empleado,concat_ws(" ",e.apellidos,e.nombre)'nombre' ,
-a.hora_ingreso,a.hora_salida,h.descripcion from asistencia a inner join empleado e 
-on a.cod_empleado=e.dni inner join horario h 
-on a.cod_horario=h.codigo;
+-- drop procedure sp_registrar_falta
+delimiter //
+create procedure sp_registrar_falta(
+in fecha_ date,
+in cod_empleado_ varchar(8),
+in cod_horario_ int)
+begin
+	set @existeRegistro=(select codigo from asistencia where fecha=fecha_ and cod_empleado=cod_empleado_);
+    if @existeRegistro is null then
+		set @message=":( Tienes retraso de mas de una hora se ha marcado la asistencia como falta";
+		insert into asistencia (fecha,cod_empleado,cod_horario,falta,descuento)
+		values(fecha_,cod_empleado_,cod_horario_,'s',6.0);
+		select @message 'mensaje';
+	else
+		set @message="ERROR: Este empleado ya registró su asistencia para el dia de hoy(2)";
+        select @message 'mensaje';
+    end if;
+end//
 
+describe asistencia;
 truncate table asistencia;
 select * from asistencia;
+
+select * from horario
+
+update asistencia set hora_salida=null where codigo=1
+
+
 
