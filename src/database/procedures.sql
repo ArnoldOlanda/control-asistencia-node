@@ -1,5 +1,12 @@
 #Procedimiento almacenado para listar empleados.
 #Establecemos que el delimitador sera '//'
+describe empleado;
+delimiter //
+create procedure sp_verifica_password(in dni_ varchar(8),in contrasena_ varchar(50))
+begin
+	select nombre from empleado where dni=dni_ and contrasena=contrasena_;
+end//
+
 DELIMITER //  
 CREATE PROCEDURE listarEmpleados()
 BEGIN
@@ -9,9 +16,6 @@ BEGIN
     inner join horario as h on e.cod_horario=h.codigo 
     INNER JOIN tipo_usuario AS t on e.tipo_usu=t.codigo;
 END//
-
-#Reestablecemos el delimitador de nuevo a ';' 
-DELIMITER ; 
 
 #Procedimiento almacenado para obtener los registros de cargo,horario y tipo_usuario
 DELIMITER //
@@ -171,6 +175,37 @@ begin
 		set @message="ERROR: Este empleado ya registró su asistencia para el dia de hoy(2)";
         select @message 'mensaje';
     end if;
+end//
+
+-- drop procedure sp_lista_asistencias_hoy
+delimiter //
+create procedure sp_lista_asistencias_hoy()
+begin
+    select date_format(a.fecha,'%d/%m/%Y')'fecha',a.cod_empleado,concat_ws(' ',e.apellidos,e.nombre)'nombre',
+    a.hora_ingreso,a.hora_salida,a.cod_horario,h.descripcion 'horario',a.descuento from asistencia a 
+    inner join empleado e on a.cod_empleado=e.dni 
+    inner join horario h on a.cod_horario=h.codigo 
+    where fecha=curdate();
+end//
+
+delimiter //
+create procedure sp_lista_asistencias_ultimo_mes()
+begin
+	select date_format(a.fecha,'%d/%m/%Y')'fecha',a.cod_empleado,concat_ws(' ',e.apellidos,e.nombre)'nombre',
+    a.hora_ingreso,a.hora_salida,a.cod_horario,h.descripcion 'horario',a.descuento from asistencia a 
+    inner join empleado e on a.cod_empleado=e.dni 
+    inner join horario h on a.cod_horario=h.codigo 
+    where extract(year from fecha)=extract(year from curdate()) and
+    extract(month from fecha)=extract(month from curdate());
+end//
+
+delimiter //
+create procedure sp_lista_descuentos_agrupado_por_empleado(in fecha_ varchar(2))
+begin
+	select e.dni,concat_ws(' ',e.apellidos,e.nombre)'nombre',sum(a.descuento)'total_descuento' from asistencia a
+    inner join empleado e on a.cod_empleado=e.dni 
+    where extract(month from a.fecha)=fecha_
+    group by a.cod_empleado;
 end//
 
 describe asistencia;

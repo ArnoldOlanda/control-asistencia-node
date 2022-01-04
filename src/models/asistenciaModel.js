@@ -1,8 +1,9 @@
+const req = require("express/lib/request");
 const dbConnection = require("../config/dbConnection");
 const conn = dbConnection();
 
 class Asistencia {
-  marcar(response,dni) {
+  marcar(request, response, dni) {
     let data = [];
     let fecha = new Date();
 
@@ -43,7 +44,7 @@ class Asistencia {
             parseInt(horaIngreso) - 1 <= fecha.getHours() &&
             parseInt(horaSalida) + 1 >= fecha.getHours()
           ) {
-            let tarde = "";
+            let tarde = "n";
             let descuento = 0.0;
             let codigoHorario = results[0][0].codigo;
 
@@ -67,15 +68,12 @@ class Asistencia {
                   if (err) throw err;
                   else {
                     errorMessage = results[0][0].mensaje;
-                    response.render("index", {
-                      appname: "Sistema de asistencia",
-                      page: "",
-                      errmsg: errorMessage,
-                    });
-                    return;
+                    request.flash('message',errorMessage)
+                    response.redirect("/")                   
                   }
                 }
               );
+              return;
             }
             data.push(codigoHorario);
             data.push(tarde);
@@ -88,25 +86,48 @@ class Asistencia {
                 if (err) throw err;
                 else {
                   errorMessage = results2[0][0].mensaje;
-                  response.render("index", {
-                    appname: "Sistema de asistencia",
-                    page: "",
-                    errmsg: errorMessage,
-                  });
+                  request.flash('message',errorMessage)
+                  response.redirect("/")
                 }
               }
             );
           } else {
             errorMessage = "El empleado no pertenece a este horario";
-            response.render("index", {
-              appname: "Sistema de asistencia",
-              page: "",
-              errmsg: errorMessage,
-            });
+            request.flash('message',errorMessage)
+            response.redirect("/")
           }
         }
       }
     );
+  }
+
+  asistenciaHoy(response,username){
+    conn.query("CALL sp_lista_asistencias_hoy",(err,results)=>{
+      if (err) throw err
+      else {
+        const data=results[0]
+        response.render("asistenciaHoy",{data,nombreUsuario:username})
+      }
+    })
+  }
+  
+  asistenciaMes(response,username){
+    conn.query("CALL sp_lista_asistencias_ultimo_mes",(err,results)=>{
+      if (err) throw err
+      else {
+        const data=results[0]
+        response.render("asistenciaMes",{data,nombreUsuario:username})
+      }
+    })
+  }
+  
+  descuentosEmpleadoPorMes(response,username,mes){
+    conn.query("CALL sp_lista_descuentos_agrupado_por_empleado(?)",[mes],(err,results)=>{
+      if (err) throw err
+      else{
+        response.json({example:'test'})
+      }
+    })
   }
 }
 

@@ -80,3 +80,37 @@ document.getElementById("closeModal").addEventListener("click",()=>{
   modalBackground.classList.remove("show-background")
   modalContainer.classList.remove("show-modal")
 })
+
+const messagesContainer=document.getElementById('messagesContainer');
+const flashErrorMessage=document.getElementById('flashErrorMessage');
+const flashErrorMessageCountDown=document.getElementById('flashErrorMessageCountDown');
+
+
+
+flashErrorMessage.style.transition='.5s ease'
+flashErrorMessage.style.color='red'
+
+flashErrorMessageCountDown.style.fontSize='12px'
+flashErrorMessageCountDown.style.color='red'
+flashErrorMessageCountDown.style.transition='.5s ease'
+window.onload=()=>{
+    
+    let seg=5
+    if(flashErrorMessage.innerHTML!=" "){
+      messagesContainer.style.width='90%'
+      let countDown=setInterval(()=>{
+        flashErrorMessageCountDown.innerText=`Este mensaje se cerrara en ${seg} segundo(s)`
+        seg--
+        if(seg==-1){
+          flashErrorMessage.style.opacity='0'
+          flashErrorMessageCountDown.style.opacity='0'
+          messagesContainer.style.opacity='0'
+          clearInterval(countDown)
+        }
+      },1000)
+    }
+    
+    
+    
+  
+}

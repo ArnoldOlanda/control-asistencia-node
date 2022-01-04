@@ -3,7 +3,8 @@
 const express = require("express");
 const path = require('path')
 const session = require('express-session')
-const { flash } = require('express-flash-message');
+const cookieParser = require ('cookie-parser')
+const flash = require ('connect-flash')
 
 const app = express();
 
@@ -14,11 +15,14 @@ app.set("port", process.env.port || 4000);
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(express.static(path.join(__dirname,"../public")));
+
+app.use(cookieParser('secretStringForCookies'))
 app.use(session({
-  secret:'secret-key',
-  resave:false,
-  saveUninitialized:false
+  secret:'secretStringForSession',
+  cookie: {maxAge:600000},
+  resave:true,
+  saveUninitialized:true
 }))
-app.use(flash({ sessionKeyName: 'flashMessage' }));
+app.use(flash());
 
 module.exports = app

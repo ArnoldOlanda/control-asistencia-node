@@ -1,0 +1,33 @@
+<%- include("template/cabecera",{titulo:"Dashboard|Admin"}) %>
+<%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %> 
+
+<div class="dashboard-container">
+    <%- include("template/sidebar") %> 
+    <div class="content">
+        <table>
+            <tr>
+                <th>Fecha</th>
+                <th>Codigo de empleado</th>
+                <th>Nombre</th>
+                <th>Horario</th>
+                <th>Hora ingreso</th>
+                <th>Hora salida</th>
+                <th>Descuento</th>
+            </tr>
+            <% for(element of data) { %>
+            <tr>
+                <td><%= element.fecha %> </td>
+                <td><%= element.cod_empleado %> </td>
+                <td><%= element.nombre %> </td>
+                <td><%= element.horario %> </td>
+                <td><%= element.hora_ingreso ? element.hora_ingreso : '-' %> </td>
+                <td><%= element.hora_salida ? element.hora_salida: '-' %> </td>
+                <td><%= element.descuento %> </td>
+            </tr>
+            <% } %>
+        </table>
+        
+    </div>
+</div>
+
+<%- include("template/footer",{page:"empleado"}) %> 

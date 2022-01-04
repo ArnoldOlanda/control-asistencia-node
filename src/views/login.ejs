@@ -6,14 +6,14 @@
     <div class="input-container">
       <div class="input">
         <div class="icon-container"><i class="fas fa-user-alt"></i></div>
-        <% if(messageError.userBadPassword) {%>
+        <% if(userBadPassword) {%>
           <input
           type="text"
           name="user"
           id="user"
           placeholder="Usuario"
           autocomplete="off"
-          value="<%= messageError.userBadPassword %>"
+          value="<%= userBadPassword %>"
           />
         <% } else {%>
           <input
@@ -26,8 +26,8 @@
         <% } %>
       </div>
       <p class="message-error" id="userMessageError">
-        <% if (messageError.messageUserNotFound) { %>
-          <%= messageError.messageUserNotFound %>
+        <% if (messageUserNotFound) { %>
+          <%= messageUserNotFound %>
         <% } %>
       </p>
     </div>
@@ -42,8 +42,8 @@
         />
       </div>
       <p class="message-error" id="passwordMessageError">
-        <% if (messageError.messageBadPassword) { %>
-          <%= messageError.messageBadPassword %></p>
+        <% if (messageBadPassword) { %>
+          <%= messageBadPassword %></p>
         <% } %>
       </p>
     </div>

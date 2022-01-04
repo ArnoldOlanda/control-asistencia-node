@@ -3,6 +3,7 @@ const dashboardRouter = Router();
 
 const empleadosRouter = require('./empleadosRouter')
 const horariosRouter = require('./horariosRouter')
+const reportesRouter = require('./reportesRouter')
 
 dashboardRouter.get("/", (req, res) => {
   if (req.session.username) {
@@ -27,10 +28,7 @@ dashboardRouter.get("/feriados", (req, res) => {
   else res.redirect("/login");
 });
 
-dashboardRouter.get("/reportes", (req, res) => {
-  if (req.session.username) res.send("reportes");
-  else res.redirect("/login");
-});
+dashboardRouter.use("/reportes", reportesRouter);
 
 dashboardRouter.get("/estadisticas", (req, res) => {
   if (req.session.username) res.send("estadisticas");

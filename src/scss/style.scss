@@ -114,6 +114,16 @@ $font-nav-color-hover: #fff;
       font-size: 30px;
     }
   }
+  .messages-container{
+    height: 50px;
+    border-color: red;
+    border-radius: 10px;
+    background-color: rgb(255, 203, 203);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s ease;
+  }
 
 }
 .modal-background{
@@ -290,10 +300,10 @@ $font-nav-color-hover: #fff;
       flex-direction: column;
       gap: 10px;
       li {
-        padding-left: 10px;
+        height: 30px;
         transition: background 0.2s ease;
         &:hover {
-          background-color: rgb(245, 245, 245);
+          background-color: $primary-color;
         }
         a {
           text-decoration: none;
@@ -309,8 +319,28 @@ $font-nav-color-hover: #fff;
             justify-content: center;
             align-items: center;
           }
-          &:hover {
-            color: $primary-color;
+        }
+      }
+      #menu-reportes{
+        overflow: hidden;
+        transition: .2s ease;
+        &:hover{
+          height: 140px;
+        }
+        ul{
+          padding: 0;
+          margin: 0;
+          li{
+            color:$secondary-color;
+            padding: 5px;
+            &:hover{
+              background-color: $primary-color-active;
+            }
+            a{
+              width: 100%;
+              height: 100%;
+              font-size: 12px;
+            }
           }
         }
       }

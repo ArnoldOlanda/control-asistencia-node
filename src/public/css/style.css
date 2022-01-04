@@ -72,6 +72,16 @@
 .main-container .reloj-container span {
   font-size: 30px;
 }
+.main-container .messages-container {
+  height: 50px;
+  border-color: red;
+  border-radius: 10px;
+  background-color: #ffcbcb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.2s ease;
+}
 
 .modal-background {
   position: fixed;
@@ -464,7 +474,7 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   gap: 10px;
 }
 .modal-container-horario .modal-footer-horario button[type=button] {
-  width: 100px;
+  width: 120px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -482,7 +492,7 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   background-color: #dadada;
 }
 .modal-container-horario .modal-footer-horario button[type=submit] {
-  width: 100px;
+  width: 120px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -500,7 +510,7 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
 }
 
 #btn-open-modal {
-  width: 100px;
+  width: 120px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -537,7 +547,7 @@ table tr #operaciones {
   gap: 2px;
 }
 table tr #operaciones a, table tr #operaciones button {
-  width: 100px;
+  width: 120px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -665,11 +675,11 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   gap: 10px;
 }
 .dashboard-container .side-bar-container ul li {
-  padding-left: 10px;
+  height: 30px;
   transition: background 0.2s ease;
 }
 .dashboard-container .side-bar-container ul li:hover {
-  background-color: whitesmoke;
+  background-color: #6e1bcc;
 }
 .dashboard-container .side-bar-container ul li a {
   text-decoration: none;
@@ -686,8 +696,28 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   justify-content: center;
   align-items: center;
 }
-.dashboard-container .side-bar-container ul li a:hover {
-  color: #6e1bcc;
+.dashboard-container .side-bar-container ul #menu-reportes {
+  overflow: hidden;
+  transition: 0.2s ease;
+}
+.dashboard-container .side-bar-container ul #menu-reportes:hover {
+  height: 140px;
+}
+.dashboard-container .side-bar-container ul #menu-reportes ul {
+  padding: 0;
+  margin: 0;
+}
+.dashboard-container .side-bar-container ul #menu-reportes ul li {
+  color: white;
+  padding: 5px;
+}
+.dashboard-container .side-bar-container ul #menu-reportes ul li:hover {
+  background-color: #c73aff;
+}
+.dashboard-container .side-bar-container ul #menu-reportes ul li a {
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
 }
 .dashboard-container .content {
   width: 88%;
