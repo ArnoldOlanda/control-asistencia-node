@@ -1,6 +1,6 @@
-#Procedimiento almacenado para listar empleados.
-#Establecemos que el delimitador sera '//'
-describe empleado;
+
+-- describe empleado;
+use control_asistencia;
 delimiter //
 create procedure sp_verifica_password(in dni_ varchar(8),in contrasena_ varchar(50))
 begin
@@ -208,13 +208,20 @@ begin
     group by a.cod_empleado;
 end//
 
-describe asistencia;
-truncate table asistencia;
-select * from asistencia;
+delimiter //
+create procedure sp_lista_meses_descuento()
+begin
+    SET lc_time_names = 'es_ES';
+    SELECT DISTINCT extract(month from fecha)'mes',date_format(fecha,'%M - %Y')'descripcion' from asistencia
+end//
 
-select * from horario
+-- describe asistencia;
+-- truncate table asistencia;
+-- select * from asistencia;
 
-update asistencia set hora_salida=null where codigo=1
+-- select * from horario
+
+-- update asistencia set hora_salida=null where codigo=1
 
 
 

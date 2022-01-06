@@ -18,14 +18,16 @@ module.exports = {
   descuentos:(req, res)=>{
     const {username}=req.session
     if(username){
-      res.render("descuentos",{nombreUsuario:username})
+      const asistencia=new Asistencia();
+      asistencia.descuento(res,username);
     }else res.redirect('/login')
   },
   descuentosEmpleadoPorMes: (req,res)=>{
     const {username}=req.session
+    const {mes}=req.params
     if(username){
       const asistencia=new Asistencia();
-      asistencia.descuentosEmpleadoPorMes(res,username,'01')
+      asistencia.descuentosEmpleadoPorMes(res,username,mes)
     } else res.redirect('/login')
   }
 };

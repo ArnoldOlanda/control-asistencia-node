@@ -120,12 +120,21 @@ class Asistencia {
       }
     })
   }
-  
+  descuento(response,username){
+    conn.query("CALL sp_lista_meses_descuento",(err,results)=>{
+      if(err) throw err
+      else{
+        //console.log(results[0])
+        const data=results[0]
+        response.render("descuentos",{nombreUsuario:username,data})
+      }
+    })
+  }
   descuentosEmpleadoPorMes(response,username,mes){
     conn.query("CALL sp_lista_descuentos_agrupado_por_empleado(?)",[mes],(err,results)=>{
       if (err) throw err
       else{
-        response.json({example:'test'})
+        response.json(results[0])
       }
     })
   }
