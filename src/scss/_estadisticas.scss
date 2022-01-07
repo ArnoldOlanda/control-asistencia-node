@@ -1,0 +1,15 @@
+
+.chart-wrapper-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(3,1fr);
+}
+.chart-wrapper {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 10px;
+  background-color: rgb(247, 247, 247);
+  height: 450px;
+  width: 400px;
+}

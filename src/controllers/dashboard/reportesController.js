@@ -29,5 +29,10 @@ module.exports = {
       const asistencia=new Asistencia();
       asistencia.descuentosEmpleadoPorMes(res,username,mes)
     } else res.redirect('/login')
+  },
+  calendario:(req,res)=>{
+    const {username}=req.session
+    if(username) res.render("calendario",{nombreUsuario:username})
+    else res.redirect('/login') 
   }
 };

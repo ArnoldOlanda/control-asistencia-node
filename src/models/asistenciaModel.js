@@ -1,4 +1,5 @@
 const req = require("express/lib/request");
+const res = require("express/lib/response");
 const dbConnection = require("../config/dbConnection");
 const conn = dbConnection();
 
@@ -55,8 +56,9 @@ class Asistencia {
               diferenciaMinutosIngreso <= 30
             ) {
               //Validar que la hora de tardanza no sea mayor a 1/2 hora(30 min)
+              console.log("Entro aqui")
               tarde = "s";
-              descuento = diferenciaMinutos * 0.1;
+              descuento = diferenciaMinutosIngreso * 0.1;
             } else if (
               diferenciaMinutosIngreso > 30 &&
               diferenciaMinutosSalida < 0
@@ -120,6 +122,7 @@ class Asistencia {
       }
     })
   }
+
   descuento(response,username){
     conn.query("CALL sp_lista_meses_descuento",(err,results)=>{
       if(err) throw err
@@ -130,6 +133,7 @@ class Asistencia {
       }
     })
   }
+
   descuentosEmpleadoPorMes(response,username,mes){
     conn.query("CALL sp_lista_descuentos_agrupado_por_empleado(?)",[mes],(err,results)=>{
       if (err) throw err
@@ -138,6 +142,44 @@ class Asistencia {
       }
     })
   }
+
+  graficaAsistenciasGeneral(response){
+    conn.query("CALL sp_grafica_asistencia_general_data",(err,results)=>{
+      if(err) throw err
+      else{
+        response.json(results[0][0])
+      }
+    })
+  }
+  graficaAsistenciasPorEmpleado(response){
+    let data=[]
+    conn.query("CALL sp_lista_asistencia_empleado_data",(err,results)=>{
+      if(err) throw err
+      else{
+        for (let i=0;i<results[0][0].totalEmpleados;i++) {
+          data.push(results[i+1][0])
+        } 
+        response.json(data)
+
+      }
+    })
+  }
+
+  grafAsistenciaPorMes(response,anio){
+    let data=[]
+    conn.query("CALL sp_data_asistencias_por_mes_año(?)",[anio],(err,results)=>{
+      if(err) throw err
+      else{
+        console.log(results)
+        data.push(results[0])
+        data.push(results[1])
+        data.push(results[2])
+        data.push(results[3])
+        response.json(data)
+      }
+    })
+  }
+
 }
 
 module.exports = Asistencia;

@@ -1,4 +1,4 @@
-<%- include("template/cabecera",{titulo:"Dashboard|Admin"}) %>
+<%- include("template/cabecera",{titulo:"Dashboard|Admin",section:''}) %>
 <%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %> 
 
 <div class="dashboard-container">
@@ -13,11 +13,6 @@
         </select>
         <button type="button" id="btnFiltro">Mostrar</button>
         <table id="tableDataDescuentos">
-            <tr>
-                <th>Dni</th>
-                <th>Nombre</th>
-                <th>Descuento del mes</th>
-            </tr>
         </table>
         
     </div>

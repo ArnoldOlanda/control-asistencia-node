@@ -1,0 +1,21 @@
+<%-
+include("template/cabecera",{titulo:"Dashboard|Admin",section:'estadisticas'})
+%> <%- include("template/navbar",{page:"dashboard",user:nombreUsuario}) %>
+<div class="dashboard-container">
+  <%- include("template/sidebar") %>
+  <div class="content">
+    <!-- <h1>Estadisticas</h1> -->
+    <div class="chart-wrapper-container">
+      <div class="chart-wrapper">
+        <canvas id="chart1"></canvas>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="chart2"></canvas>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="chart3"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("template/footer",{page:"estadisticas"}) %>
