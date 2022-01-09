@@ -14,11 +14,11 @@
   justify-content: space-between;
   align-items: center;
 }
-.nav-container h4 {
+.nav-container h2 {
   color: white;
   margin-left: 20px;
 }
-.nav-container h4 a {
+.nav-container h2 a {
   text-decoration: none;
   color: white;
 }
@@ -33,6 +33,10 @@
 .nav-container .menu-container a {
   text-decoration: none;
   color: silver;
+}
+.nav-container .menu-container a i {
+  font-size: 20px;
+  margin: 0 10px;
 }
 .nav-container .menu-container a:hover {
   color: #fff;
@@ -59,11 +63,13 @@
   margin-top: 20px;
   width: 50%;
   height: 10vh;
+  color: #3f3f3f;
 }
 .main-container .reloj-container {
   width: 50%;
   height: 20vh;
   text-align: center;
+  color: #3f3f3f;
 }
 .main-container .reloj-container h1 {
   display: inline;
@@ -81,6 +87,13 @@
   flex-direction: column;
   align-items: center;
   transition: 0.2s ease;
+}
+.main-container #messageError {
+  height: 20px;
+  padding: 4px 2px;
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
 }
 
 .modal-background {
@@ -132,8 +145,8 @@
 .modal-container .modal-body {
   height: 55%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 .modal-container .modal-body input {
   width: 100%;
@@ -529,6 +542,7 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
 }
 
 table {
+  margin-top: 10px;
   width: 95%;
   font-size: 14px;
   color: #4d4d4d;
@@ -712,20 +726,23 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   justify-content: center;
   align-items: center;
 }
+.dashboard-container .side-bar-container ul li a .icon i {
+  color: #fff;
+}
 .dashboard-container .side-bar-container ul #menu-reportes {
   overflow: hidden;
   transition: 0.2s ease;
 }
-.dashboard-container .side-bar-container ul #menu-reportes:hover {
-  height: 140px;
-}
 .dashboard-container .side-bar-container ul #menu-reportes ul {
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 .dashboard-container .side-bar-container ul #menu-reportes ul li {
   color: white;
-  padding: 5px;
+  padding-left: 25px;
 }
 .dashboard-container .side-bar-container ul #menu-reportes ul li:hover {
   background-color: #c73aff;
@@ -735,10 +752,53 @@ table tr #operaciones a:hover, table tr #operaciones button:hover {
   height: 100%;
   font-size: 12px;
 }
+.dashboard-container .side-bar-container ul #flecha {
+  transition: 0.5s ease;
+}
+.dashboard-container .side-bar-container ul .show-sub-menu {
+  height: 120px;
+}
+.dashboard-container .side-bar-container ul .rotar-flecha {
+  transform: rotate(180deg);
+}
 .dashboard-container .content {
   width: 88%;
   height: 100%;
   padding: 10px;
+}
+.dashboard-container .content .default-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard-container .content #selectMes {
+  width: 20%;
+  height: 35px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #6e1bcc;
+  padding-left: 5px;
+}
+.dashboard-container .content #btnFiltro {
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  outline: none;
+  transition: 0.2s background ease;
+  display: initial;
+  background-color: #6e1bcc;
+  color: #fff;
+}
+.dashboard-container .content #btnFiltro:hover {
+  background-color: #511369;
 }
 
 /*# sourceMappingURL=style.css.map */

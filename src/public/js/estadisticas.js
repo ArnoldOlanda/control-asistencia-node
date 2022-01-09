@@ -2,6 +2,7 @@ function totalAsistenciasChart(ctx) {
     fetch("/dashboard/estadisticas/data/total")
     .then(res=>res.json())
     .then(res=>{
+      console.log(res)
         const chart = new Chart(ctx, {
             type: "pie",
             data: {
@@ -14,7 +15,7 @@ function totalAsistenciasChart(ctx) {
                     "blue",
                     "black",
                   ],
-                  data: [res.asistencias,res.tardanzas+1,res.faltas],
+                  data: [res.asistencias,res.tardanzas,res.faltas],
                 },
               ],
               hoverOffset: 4,

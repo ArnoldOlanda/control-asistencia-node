@@ -2,9 +2,12 @@ const fecha = document.getElementById("fecha");
 const reloj = document.getElementById("reloj");
 const ampm = document.getElementById("ampm");
 
-const openModalBtn =  document.getElementById("btn-open-modal");
+const openModalBtn = document.getElementById("btn-open-modal");
 const modalBackground = document.querySelector(".modal-background");
-const modalContainer = document.querySelector(".modal-container")
+const modalContainer = document.querySelector(".modal-container");
+const btnSubmitData = document.getElementById("btnSubmitData");
+const inputDni = document.getElementById("inputDni");
+const messageError = document.getElementById("messageError");
 
 let dia,
   mes,
@@ -61,56 +64,66 @@ setInterval(() => {
   ampm.innerText = txtampm;
 }, 500);
 
-openModalBtn.addEventListener("click",()=>{
-  modalBackground.classList.add("show-background")
-  modalContainer.classList.add("show-modal")
-})
+openModalBtn.addEventListener("click", () => {
+  modalBackground.classList.add("show-background");
+  modalContainer.classList.add("show-modal");
+});
 
-// modalBackground.addEventListener("click",()=>{
-//   modalBackground.classList.remove("show-background")
-//   modalContainer.classList.remove("show-modal")
-// })
+document.getElementById("btnCancel").addEventListener("click", () => {
+  modalBackground.classList.remove("show-background");
+  modalContainer.classList.remove("show-modal");
+});
 
-document.getElementById("btnCancel").addEventListener("click",()=>{
-  modalBackground.classList.remove("show-background")
-  modalContainer.classList.remove("show-modal")
-})
+document.getElementById("closeModal").addEventListener("click", () => {
+  modalBackground.classList.remove("show-background");
+  modalContainer.classList.remove("show-modal");
+});
 
-document.getElementById("closeModal").addEventListener("click",()=>{
-  modalBackground.classList.remove("show-background")
-  modalContainer.classList.remove("show-modal")
-})
+btnSubmitData.addEventListener("click", (e) => {
+  messageError.style.backgroundColor = "transparent";
+  messageError.innerText = "";
+  let dniValido = false;
+  e.preventDefault();
 
-const messagesContainer=document.getElementById('messagesContainer');
-const flashErrorMessage=document.getElementById('flashErrorMessage');
-const flashErrorMessageCountDown=document.getElementById('flashErrorMessageCountDown');
+  if (isNaN(inputDni.value)==false && inputDni.value.length == 8 && !inputDni.value.includes('.')) {
+    dniValido = true;
+  }
+  if (dniValido == false) {
+    setTimeout(() => {
+      messageError.style.backgroundColor = "rgb(255, 203, 203)";
+      messageError.innerText = "Ingrese un numero de dni valido";
+    }, 300);
+  } else {
+    modalContainer.submit();
+    //console.log("Si paso");
+  }
+});
 
+const messagesContainer = document.getElementById("messagesContainer");
+const flashErrorMessage = document.getElementById("flashErrorMessage");
+const flashErrorMessageCountDown = document.getElementById(
+  "flashErrorMessageCountDown"
+);
 
+flashErrorMessage.style.transition = ".5s ease";
+flashErrorMessage.style.color = "red";
 
-flashErrorMessage.style.transition='.5s ease'
-flashErrorMessage.style.color='red'
-
-flashErrorMessageCountDown.style.fontSize='12px'
-flashErrorMessageCountDown.style.color='red'
-flashErrorMessageCountDown.style.transition='.5s ease'
-window.onload=()=>{
-    
-    let seg=5
-    if(flashErrorMessage.innerHTML!=" "){
-      messagesContainer.style.width='90%'
-      let countDown=setInterval(()=>{
-        flashErrorMessageCountDown.innerText=`Este mensaje se cerrara en ${seg} segundo(s)`
-        seg--
-        if(seg==-1){
-          flashErrorMessage.style.opacity='0'
-          flashErrorMessageCountDown.style.opacity='0'
-          messagesContainer.style.opacity='0'
-          clearInterval(countDown)
-        }
-      },1000)
-    }
-    
-    
-    
-  
-}
+flashErrorMessageCountDown.style.fontSize = "12px";
+flashErrorMessageCountDown.style.color = "red";
+flashErrorMessageCountDown.style.transition = ".5s ease";
+window.onload = () => {
+  let seg = 5;
+  if (flashErrorMessage.innerHTML != " ") {
+    messagesContainer.style.width = "90%";
+    let countDown = setInterval(() => {
+      flashErrorMessageCountDown.innerText = `Este mensaje se cerrara en ${seg} segundo(s)`;
+      seg--;
+      if (seg == -1) {
+        flashErrorMessage.style.opacity = "0";
+        flashErrorMessageCountDown.style.opacity = "0";
+        messagesContainer.style.opacity = "0";
+        clearInterval(countDown);
+      }
+    }, 1000);
+  }
+};

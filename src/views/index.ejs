@@ -25,11 +25,12 @@ include("template/navbar") %>
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" name="dni" placeholder="Ingrese DNI" />
+        <input type="text" name="dni" id="inputDni" placeholder="Ingrese DNI" autocomplete="off" />
+        <p class="message-error" id="messageError"></p>
       </div>
       <div class="modal-footer">
         <button type="button" id="btnCancel"><i class="fas fa-ban"></i>Cancelar</button>
-        <button type="submit"><i class="fas fa-check"></i>Marcar</button>
+        <button type="submit" id="btnSubmitData"><i class="fas fa-check"></i>Marcar</button>
       </div>
     </form>
   </div>

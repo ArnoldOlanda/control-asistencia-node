@@ -85,10 +85,6 @@ document.getElementById("closeModal").addEventListener("click", () => {
   modalContainer.classList.remove("show-modal");
 });
 
-// formRegisterUpdate.addEventListener('submit',(e)=>{
-//   e.preventDefault()
-
-// })
 txtdni.addEventListener("keyup", (e) => {
   txtusuario.setAttribute("value", e.target.value);
   txtusuario.innerText=e.target.value;

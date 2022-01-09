@@ -19,18 +19,17 @@ class Asistencia {
     data.push(horaActual); //hora actual
 
     conn.query(
-      "CALL sp_obtener_horario_empleado(?);",
+      "CALL sp_obtener_horario_empleado_si_existe(?);",
       [dni],
       (err, results) => {
         if (err) throw err;
-        else {
+        let errorMessage = "";
+        if(results[0][0].existe!=0) {
           const dataHoraInicio = results[0][0].hora_inicio.split(":");
           const dataHoraSalida = results[0][0].hora_fin.split(":");
 
           const horaIngreso = dataHoraInicio[0];
           const horaSalida = dataHoraSalida[0];
-
-          let errorMessage = "";
 
           horarioInicio.setHours(dataHoraInicio[0], dataHoraInicio[1], "00");
           horarioFin.setHours(dataHoraSalida[0], dataHoraSalida[1], "00");
@@ -40,7 +39,7 @@ class Asistencia {
           );
           let diferenciaMinutosSalida = parseInt((fecha - horarioFin) / 60000);
 
-          //validar que el empleado pertenezca al horario actual
+          //validar que el empleado existe o pertenezca al horario actual
           if (
             parseInt(horaIngreso) - 1 <= fecha.getHours() &&
             parseInt(horaSalida) + 1 >= fecha.getHours()
@@ -56,7 +55,6 @@ class Asistencia {
               diferenciaMinutosIngreso <= 30
             ) {
               //Validar que la hora de tardanza no sea mayor a 1/2 hora(30 min)
-              console.log("Entro aqui")
               tarde = "s";
               descuento = diferenciaMinutosIngreso * 0.1;
             } else if (
@@ -80,7 +78,6 @@ class Asistencia {
             data.push(codigoHorario);
             data.push(tarde);
             data.push(descuento);
-
             conn.query(
               "CALL sp_registrar_asistencia(?,?,?,?,?,?);",
               data,
@@ -98,6 +95,10 @@ class Asistencia {
             request.flash('message',errorMessage)
             response.redirect("/")
           }
+        }else{
+          errorMessage = "El empleado no existe";
+          request.flash('message',errorMessage)
+          response.redirect("/")
         }
       }
     );
@@ -170,7 +171,6 @@ class Asistencia {
     conn.query("CALL sp_data_asistencias_por_mes_año(?)",[anio],(err,results)=>{
       if(err) throw err
       else{
-        console.log(results)
         data.push(results[0])
         data.push(results[1])
         data.push(results[2])

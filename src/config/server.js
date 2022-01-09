@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname,"../public")));
 app.use(cookieParser('secretStringForCookies'))
 app.use(session({
   secret:'secretStringForSession',
-  cookie: {maxAge:600000},
+  cookie: {maxAge:3600000},
   resave:true,
   saveUninitialized:true
 }))

@@ -22,20 +22,13 @@ dashboardRouter.use("/mantenimientoHorario", horariosRouter);
 
 dashboardRouter.get("/calendario",calendario)
 
-// dashboardRouter.get("/feriados", (req, res) => {
-//   if (req.session.username) res.send("feriados");
-//   else res.redirect("/login");
-// });
-
 dashboardRouter.use("/reportes", reportesRouter);
 
 dashboardRouter.use("/estadisticas",estadisticasRouter);
 
 dashboardRouter.get("/logout", (req, res) => {
-  if (req.session.username)
-    req.session.destroy(() => {
-      res.redirect("/login");
-    });
+  if (req.session.username) req.session.destroy();
+  res.redirect("/login");
 });
 
 module.exports = dashboardRouter;

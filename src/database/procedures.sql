@@ -109,13 +109,21 @@ END//
 DELIMITER ;
 -- describe empleado;
 -- describe asistencia;
-
+-- drop procedure sp_obtener_horario_empleado_si_existe
 DELIMITER //
-CREATE PROCEDURE sp_obtener_horario_empleado(in cod int)
+CREATE PROCEDURE sp_obtener_horario_empleado_si_existe(in cod int)
 begin
-	set @codHorario=(select cod_horario from empleado where dni=cod);
-	select h.hora_inicio,h.hora_fin,h.codigo from horario h where h.codigo=@codHorario;
+	DECLARE existe boolean DEFAULT 0;
+	set @existeEmpleado=(select dni from empleado where dni=cod);
+    set @codHorario=(select cod_horario from empleado where dni=cod);
+	if @existeEmpleado is not null then
+		set existe=true;
+        select existe,h.hora_inicio,h.hora_fin,h.codigo from horario h where h.codigo=@codHorario;
+	else
+		select existe;
+	end if;
 end//
+call sp_obtener_horario_empleado_si_existe('70606304')
 
 -- drop procedure sp_registrar_asistencia
 DELIMITER //
@@ -136,16 +144,19 @@ begin
     set @horaSalidaMarcada=(select extract(HOUR from hora));
     set @minutoSalidaMarcado=(select extract(MINUTE from hora));
     
+    set @nombreEmpleado=(select nombre from empleado where dni=cod);
+    
     if @existeIngreso is null then -- no existe ingreso
 		insert into asistencia (fecha,cod_empleado,hora_ingreso,cod_horario,tarde,descuento)
 		values(fecha_,cod,hora,horario,tarde_,descuento_);
-        set @message="Asistencia de ingreso registrada";
-        select @message 'mensaje';
+        set @message1=concat_ws(" ","Hola",@nombreEmpleado);
+        set @message2="Asistencia de ingreso registrada";
+        select concat_ws(", ",@message1,@message2) 'mensaje';
 	elseif @existeIngreso is not null and @existeSalida is null then
 		if @horaSalidaMarcada >= @horaSalida and @minutoSalidaMarcado >= @minutoSalida then
 			update asistencia set
 			hora_salida=hora
-			where fecha=fecha_ and cod_empleado=cod;
+			where fecha=fecha_ and cod_empleado=cod and cod_horario=horario;
 			set @message="Asistencia de salida registrada";
 			select @message 'mensaje';
 		else
@@ -210,28 +221,30 @@ begin
     group by a.cod_empleado;
 end//
 
+-- drop procedure sp_lista_meses_descuento
 delimiter //
 create procedure sp_lista_meses_descuento()
 begin
     SET lc_time_names = 'es_ES';
-    SELECT DISTINCT extract(month from fecha)'mes',date_format(fecha,'%M - %Y')'descripcion' from asistencia;
+    SELECT DISTINCT month(fecha)'mes',date_format(fecha,'%M - %Y')'descripcion' from asistencia order by fecha;
 end//
 
+-- drop procedure sp_grafica_asistencia_general_data
 delimiter //
 create procedure sp_grafica_asistencia_general_data()
 begin
-	set @asistencias=(select count(*) from asistencia where hora_ingreso is not null);
+	set @asistencias=(select count(*) from asistencia where hora_ingreso is not null and tarde='n');
 	set @tardanzas=(select count(*) from asistencia where tarde='s');
 	set @faltas=(select count(*) from asistencia where falta='s');
 	select @asistencias 'asistencias',@tardanzas'tardanzas',@faltas'faltas';
 end//
-
+call sp_grafica_asistencia_general_data
 -- drop procedure sp_asistencia_empleado_data
 delimiter //
 create procedure sp_asistencia_empleado_data(in _dni varchar(8))
 begin
 	set @nombre=(select concat_ws(" ",nombre,apellidos) from empleado where dni=_dni);
-	set @a=(select count(*) from asistencia where hora_ingreso is not null and cod_empleado=_dni);
+	set @a=(select count(*) from asistencia where hora_ingreso is not null and tarde='n' and cod_empleado=_dni);
 	set @t=(select count(*) from asistencia where tarde='s' and cod_empleado=_dni);
 	set @f=(select count(*) from asistencia where falta='s' and cod_empleado=_dni);
 
@@ -260,19 +273,19 @@ create procedure sp_data_asistencias_por_mes_año(in _año varchar(4))
 begin
 	SET lc_time_names = 'es_ES';
 	SELECT DISTINCT date_format(fecha,'%M - %Y')'meses' 
-	from asistencia where year(fecha)=_año;
+	from asistencia where year(fecha)=_año order by fecha;
 
 	select date_format(fecha,'%M')'mes',count(*)'asistencias' from asistencia where hora_ingreso is not null
-	and year(fecha)=_año 
-	group by month(fecha);
+	and tarde='n' and year(fecha)=_año 
+	group by month(fecha) order by fecha;
 
 	select date_format(fecha,'%M')'mes',count(*)'tardanzas' from asistencia where tarde='s'
 	and year(fecha)=_año
-	group by month(fecha);
+	group by month(fecha) order by fecha;
 
 	select date_format(fecha,'%M')'mes',count(*)'faltas' from asistencia where falta='s'
 	and year(fecha)=_año
-	group by month(fecha);
+	group by month(fecha) order by fecha;
 end//
 
 -- call sp_asistencia_empleado_data('29530770');
@@ -280,4 +293,8 @@ end//
 -- describe asistencia;
 -- truncate table asistencia;
 -- select * from asistencia;
--- select * from horario
+-- select * from horario;
+
+
+
+

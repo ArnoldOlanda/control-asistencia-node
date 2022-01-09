@@ -2,6 +2,7 @@
 $primary-color: rgb(110, 27, 204);
 $primary-color-hover: rgb(81, 19, 105);
 $primary-color-active: rgb(199, 58, 255);
+$letter-color:rgb(63, 63, 63);
 $secondary-color: rgb(255, 255, 255);
 $font-nav-color: silver;
 $font-nav-color-hover: #fff;
@@ -11,6 +12,7 @@ $font-nav-color-hover: #fff;
   padding: 0;
   font-family: 'Roboto',Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+  //color: $letter-color;
 }
 
 
@@ -56,7 +58,7 @@ $font-nav-color-hover: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  h4 {
+  h2 {
     color: white;
     margin-left: 20px;
     a {
@@ -74,6 +76,10 @@ $font-nav-color-hover: #fff;
     a {
       text-decoration: none;
       color: $font-nav-color;
+      i{
+        font-size: 20px;
+        margin: 0 10px;
+      }
       &:hover {
         color: $font-nav-color-hover;
       }
@@ -101,11 +107,13 @@ $font-nav-color-hover: #fff;
     margin-top: 20px;
     width: 50%;
     height: 10vh;
+    color:$letter-color;
   }
   .reloj-container{
     width: 50%;
     height: 20vh;
     text-align: center;
+    color: $letter-color;
     h1{
       display: inline;
       font-size: 60px;
@@ -124,7 +132,13 @@ $font-nav-color-hover: #fff;
     align-items: center;
     transition: 0.2s ease;
   }
-
+  #messageError{
+    height: 20px;
+    padding: 4px 2px;
+    margin-top: 5px;
+    color:red;
+    font-size: 12px;
+  }
 }
 .modal-background{
     @include bg-modal();
@@ -159,8 +173,8 @@ $font-nav-color-hover: #fff;
   .modal-body {
     height: 55%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     input {
       width: 100%;
       border: none;
@@ -319,21 +333,25 @@ $font-nav-color-hover: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
+            i{
+              color: #fff;
+            }
           }
         }
       }
       #menu-reportes{
         overflow: hidden;
         transition: .2s ease;
-        &:hover{
-          height: 140px;
-        }
         ul{
           padding: 0;
           margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap:0;
           li{
             color:$secondary-color;
-            padding: 5px;
+            padding-left: 25px;
+            
             &:hover{
               background-color: $primary-color-active;
             }
@@ -345,13 +363,48 @@ $font-nav-color-hover: #fff;
           }
         }
       }
+      #flecha{
+        transition: .5s ease;
+      }
+      .show-sub-menu{
+        height: 120px;
+      }
+      .rotar-flecha{
+        transform: rotate(180deg);
+      }
     }
   }
   .content {
     width: calc(100% - 12%);
     height: 100%;
     padding: 10px;
+    .default-view{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #selectMes{
+      width: 20%;
+      height: 35px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid $primary-color;
+      padding-left: 5px;
+    }
+    #btnFiltro{
+      @include btn();
+      display: initial;
+      background-color: $primary-color;
+      color: #fff;
+      &:hover {
+        background-color: $primary-color-hover;
+      }
+    }
   }
+
 }
 
 // sass src/scss/style.scss src/public/css/style.css --watch

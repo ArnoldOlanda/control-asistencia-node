@@ -4,8 +4,10 @@
 <div class="dashboard-container">
     <%- include("template/sidebar") %> 
     <div class="content">
-        <h1>Administracion del Sistema</h1>
+        <div class="default-view">
+            <h1>Administracion del Sistema</h1>
+        </div>
     </div>
 </div>
 
-<%- include("template/footer") %> 
+<%- include("template/footer",{page:"dashboard"}) %> 
