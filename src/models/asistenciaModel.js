@@ -117,7 +117,7 @@ class Asistencia {
   }
   
   asistenciaMes(response,username){
-    conn.query("CALL sp_lista_asistencias_ultimo_mes()",[fechaActual],(err,results)=>{
+    conn.query("CALL sp_lista_asistencias_ultimo_mes(?)",[fechaActual],(err,results)=>{
       if (err) throw err
       else {
         const data=results[0]
