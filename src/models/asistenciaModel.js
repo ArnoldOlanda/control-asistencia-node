@@ -3,13 +3,14 @@ const res = require("express/lib/response");
 const dbConnection = require("../config/dbConnection");
 const conn = dbConnection();
 
-class Asistencia {
-  marcar(request, response, dni) {
-    let data = [];
-    let fecha = new Date();
+let fecha = new Date();
 
     let fechaActual = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`;
     let horaActual = `${fecha.getHours()}:${fecha.getMinutes()}`;
+class Asistencia {
+  marcar(request, response, dni) {
+    let data = [];
+    
 
     let horarioInicio = new Date();
     let horarioFin = new Date();
@@ -105,9 +106,10 @@ class Asistencia {
   }
 
   asistenciaHoy(response,username){
-    conn.query("CALL sp_lista_asistencias_hoy",(err,results)=>{
+    conn.query("CALL sp_lista_asistencias_hoy(?)",[fechaActual],(err,results)=>{
       if (err) throw err
       else {
+        console.log(fechaActual)
         const data=results[0]
         response.render("asistenciaHoy",{data,nombreUsuario:username})
       }
@@ -115,7 +117,7 @@ class Asistencia {
   }
   
   asistenciaMes(response,username){
-    conn.query("CALL sp_lista_asistencias_ultimo_mes",(err,results)=>{
+    conn.query("CALL sp_lista_asistencias_ultimo_mes()",[fechaActual],(err,results)=>{
       if (err) throw err
       else {
         const data=results[0]

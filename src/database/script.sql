@@ -61,5 +61,5 @@ insert into cargo(cargo) values ('Empleado'),('Secretario'),('Jefe de area');
 insert into horario(descripcion,hora_inicio,hora_fin) values ('Mañana','08:00:00','13:00:00');
 
 insert into empleado(dni,nombre,apellidos,celular,correo,direccion,genero,cod_cargo,cod_horario,contrasena,tipo_usu)
-values ('70606804','Arnold','Olanda Muñoz','960135245','olanda188@gmail.com','Alto paucarpata A-2','m',1,1,'06041998Aa','1');
+values ('70606804','Arnold','Olanda Muñoz','960135245','olanda188@gmail.com','Alto paucarpata A-2','m',4,4,'06041998Aa','4');
 

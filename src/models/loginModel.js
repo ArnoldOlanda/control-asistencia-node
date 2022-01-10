@@ -1,10 +1,10 @@
 const dbConnection = require("../config/dbConnection");
 const conn = dbConnection();
 
-conn.connect((err) => {
-  if (err) throw err;
-  else console.log("Conected to database");
-});
+// conn.connect((err) => {
+//   if (err) throw err;
+//   else console.log("Conected to database");
+// });
 
 class Login {
   verifyLogin(request, response, user, password) {

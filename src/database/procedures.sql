@@ -1,6 +1,6 @@
 
 -- describe empleado;
-use control_asistencia;
+-- use control_asistencia;
 delimiter //
 create procedure sp_verifica_password(in dni_ varchar(8),in contrasena_ varchar(50))
 begin
@@ -107,8 +107,7 @@ BEGIN
 END//
 
 DELIMITER ;
--- describe empleado;
--- describe asistencia;
+
 -- drop procedure sp_obtener_horario_empleado_si_existe
 DELIMITER //
 CREATE PROCEDURE sp_obtener_horario_empleado_si_existe(in cod int)
@@ -123,7 +122,6 @@ begin
 		select existe;
 	end if;
 end//
-call sp_obtener_horario_empleado_si_existe('70606304')
 
 -- drop procedure sp_registrar_asistencia
 DELIMITER //
@@ -190,31 +188,32 @@ end//
 
 -- drop procedure sp_lista_asistencias_hoy
 delimiter //
-create procedure sp_lista_asistencias_hoy()
+create procedure sp_lista_asistencias_hoy(in fecha_ date)
 begin
     select date_format(a.fecha,'%d/%m/%Y')'fecha',a.cod_empleado,concat_ws(' ',e.apellidos,e.nombre)'nombre',
     a.hora_ingreso,a.hora_salida,a.cod_horario,h.descripcion 'horario',a.descuento from asistencia a 
     inner join empleado e on a.cod_empleado=e.dni 
     inner join horario h on a.cod_horario=h.codigo 
-    where fecha=curdate();
+    where fecha=fecha_;
 end//
 
+-- drop procedure sp_lista_asistencias_ultimo_mes
 delimiter //
-create procedure sp_lista_asistencias_ultimo_mes()
+create procedure sp_lista_asistencias_ultimo_mes(in fecha_ date)
 begin
 	select date_format(a.fecha,'%d/%m/%Y')'fecha',a.cod_empleado,concat_ws(' ',e.apellidos,e.nombre)'nombre',
     a.hora_ingreso,a.hora_salida,a.cod_horario,h.descripcion 'horario',a.descuento from asistencia a 
     inner join empleado e on a.cod_empleado=e.dni 
     inner join horario h on a.cod_horario=h.codigo 
-    where extract(year from fecha)=extract(year from curdate()) and
-    extract(month from fecha)=extract(month from curdate());
+    where extract(year from fecha)=extract(year from fecha_) and
+    extract(month from fecha)=extract(month from fecha_);
 end//
 
 -- drop procedure sp_lista_descuentos_agrupado_por_empleado
 delimiter //
 create procedure sp_lista_descuentos_agrupado_por_empleado(in fecha_ varchar(2))
 begin
-	select e.dni,concat_ws(' ',e.apellidos,e.nombre)'nombre',sum(a.descuento)'total_descuento' from asistencia a
+	select e.dni,concat_ws(' ',e.apellidos,e.nombre)'nombre',sum(round(a.descuento,1))'total_descuento' from asistencia a
     inner join empleado e on a.cod_empleado=e.dni 
     where extract(month from a.fecha)=fecha_
     and a.descuento!=0
@@ -288,13 +287,7 @@ begin
 	group by month(fecha) order by fecha;
 end//
 
--- call sp_asistencia_empleado_data('29530770');
-
--- describe asistencia;
--- truncate table asistencia;
--- select * from asistencia;
--- select * from horario;
-
-
+select now();
+SELECT @@global.time_zone;
 
 
