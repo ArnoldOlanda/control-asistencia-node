@@ -3,12 +3,23 @@
 
 const mysql = require("mysql2");
 
+//-------------------Produccion--------------------------------
+// module.exports = () => {
+//   return mysql.createPool({
+//     host:'us-cdbr-east-05.cleardb.net',
+//     user: 'b8f01177a02349',
+//     password:'e3634958',
+//     database: 'heroku_375a48be8c216d2'
+//   });
+// };
+
+//------------------Desarrollo----------------------------------
 module.exports = () => {
-  return mysql.createPool({
-    host:'us-cdbr-east-05.cleardb.net',
-    user: 'b8f01177a02349',
-    password:'e3634958',
-    database: 'heroku_375a48be8c216d2'
+  return mysql.createConnection({
+    host:'localhost',
+    user: 'root',
+    password:'admin',
+    database: 'control_asistencia'
   });
 };
 

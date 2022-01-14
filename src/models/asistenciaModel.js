@@ -109,7 +109,6 @@ class Asistencia {
     conn.query("CALL sp_lista_asistencias_hoy(?)",[fechaActual],(err,results)=>{
       if (err) throw err
       else {
-        console.log(fechaActual)
         const data=results[0]
         response.render("asistenciaHoy",{data,nombreUsuario:username})
       }

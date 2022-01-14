@@ -6,6 +6,7 @@ module.exports = {
     if (req.session.username) {
       const asistencia = new Asistencia();
       asistencia.asistenciaHoy(res, username);
+      
     } else res.redirect("/login");
   },
   asistenciaMes: (req, res) => {

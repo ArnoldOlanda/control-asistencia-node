@@ -13,8 +13,8 @@ formSubmit.addEventListener('submit',(e)=>{
   passwordMessageError.innerText=""
   
   e.preventDefault();
-  if(user.value.length<1){
-    userMessageError.innerText="Escriba un nombre de usuario valido"
+  if(user.value.length != 8){
+    userMessageError.innerText="Escriba un dni valido de 8 caracteres"
     validData=false
   }
   if(password.value.length<1){

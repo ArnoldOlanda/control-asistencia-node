@@ -8,7 +8,6 @@ const conn = dbConnection();
 
 class Login {
   verifyLogin(request, response, user, password) {
-    let message = {};
     let validUser = true;
 
     //Busqueda el usuario

@@ -28,7 +28,7 @@ dashboardRouter.use("/estadisticas",estadisticasRouter);
 
 dashboardRouter.get("/logout", (req, res) => {
   if (req.session.username) req.session.destroy();
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 module.exports = dashboardRouter;
